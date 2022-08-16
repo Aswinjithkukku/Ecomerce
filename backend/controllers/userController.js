@@ -112,6 +112,52 @@ export const resetPassword = catchAsyncErrors( async (req,res,next) => {
     sendToken(user, 200, res)
 })
 
+// Get currently logged in user profile => /api/v1/me
+export const getUserProfile = catchAsyncErrors( async (req,res,next) => {
+
+    const user = await userModel.findById(req.user.id)
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+}) 
+
+// Update or change password => /api/v1/password/update
+export const updatePassword = catchAsyncErrors( async (req,res,next) => {
+
+    const user = await userModel.findById(req.user.id).select('+password')
+
+    // check previous passord
+    const isMatched = await user.comparePassword(req.body.oldPassword)
+
+    if(!isMatched) {
+        return next( new ErrorHandler('Old password is incorrect',400))
+    }
+
+    user.password = req.body.password
+    await user.save()
+
+    sendToken(user, 200, res)
+})
+
+// Update Profile => /api/v1/me/update
+export const updateProfile = catchAsyncErrors( async (req,res,next) => {
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email
+    }
+    // update avatar to do............................................................................................................
+    const user = await userModel.findByIdAndUpdate(req.user.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+    res.status(200).json({
+        success: true
+    })
+})
+
 // Logout user => /api/v1/logout
 export const logoutUser = catchAsyncErrors( async (req,res,next) => {
     res.cookie('token', null, {
@@ -123,3 +169,65 @@ export const logoutUser = catchAsyncErrors( async (req,res,next) => {
         message: 'Loged out'
     })
 })
+
+// ADMIN ROUTES
+
+// Get all users => /api/v1/admin/users
+export const allUsers = catchAsyncErrors( async (req,res,next) => {
+    const users = await userModel.find()
+
+    res.status(200).json({
+        success: true,
+        users
+    })
+})
+
+// Gey User details => /api/v1/admin/user/:id
+export const getUserDetails = catchAsyncErrors( async (req,res,next) => {
+    const user = await userModel.findById(req.params.id)
+
+    if(!user) {
+        return next(new ErrorHandler(`User does not find with id: ${req.params.id}`,400))
+    }
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
+
+// Upadte user => /api/v1/admin/user/:id
+export const updateUser = catchAsyncErrors( async (req,res,next) => {
+
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+        role: req.body.role
+    }
+
+    const user = await userModel.findOneAndUpdate(req.params.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        success: true
+    })
+})
+
+// Delete user => /api/v1/admin/user/:id
+export const deleteUser = catchAsyncErrors( async (req,res,next) => {
+
+    const user = await userModel.findById(req.params.id)
+
+    if(!user) {
+        return next( new ErrorHandler(`User does not find with id: ${req.params.id}`,400))
+    }
+    //remove avatar from cloudinary ...........................................todo.............................
+    await user.remove()
+
+    res.status(200).json({
+        success: true
+    })
+}) 
