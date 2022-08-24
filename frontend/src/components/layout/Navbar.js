@@ -1,14 +1,15 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Navbar() {
   return (
         
 <nav className="bg-gray-300 border-gray-200 px-2 sm:px-4 py-2.5">
   <div className="container flex flex-wrap justify-between items-center mx-auto">
-  <a href="#prod" className="flex items-center">
+  <Link to="/" className="flex items-center">
       <img src="https://flowbite.com/docs/images/logo.svg" className="mr-3 h-6 sm:h-9" alt="BS Logo"/>
       <span className="self-center text-xl font-semibold whitespace-nowrap">BrandShop</span>
-  </a>
+  </Link>
 
   <div className="flex md:order-1">
     <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search" aria-expanded="false" className="md:hidden text-gray-500  hover:bg-gray-100  focus:outline-none focus:ring-4 focus:ring-gray-200  rounded-lg text-sm p-2.5 mr-1">

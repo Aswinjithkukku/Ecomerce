@@ -23,12 +23,12 @@ export const getProducts = catchAsyncErrors( async (req, res, next) => {
 
   const apiFeatures = new APIFeatures(productModel.find(), req.query).search().filter().pagination(resPerPage)
   const products = await apiFeatures.query
-  res.status(200).json({
-    success: true,
-    count: products.length,
-    productCount,
-    products,
-  });
+
+    res.status(200).json({
+      success: true,
+      productCount,
+      products,
+    });
 });
 
 //get single product => /api/v1/product/:id
