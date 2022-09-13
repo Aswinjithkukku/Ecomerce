@@ -1,45 +1,76 @@
 import React, { Fragment, useState, useEffect } from "react";
 import MetaData from "./layout/MetaData";
-import { Link } from 'react-router-dom'
+import { useParams } from "react-router-dom";
+import Loader from "./Loader";
+import Pagination from "./Pagination";
+import Slider from "rc-slider";
+import "rc-slider/assets/index.css";
+import Product from "./Product";
 import Rating from "./Rating";
-import Loader from './Loader'
-import Pagination from './Pagination'
 
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, getProducts } from "../actions/ProductAction";
 
+const { createSliderWithTooltip } = Slider;
+const Range = createSliderWithTooltip(Slider.Range);
+
 function Home() {
   const dispatch = useDispatch();
+  const params = useParams();
 
-  const [ currentPage, setCurrentPage ] = useState(1)
+  const keyword = params.keyword;
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [price, setPrice] = useState([1, 1000]);
+  const [category, setCategory] = useState("");
+  const [rating, setRating] = useState(0)
+
+  const categories = [
+    "Electronics",
+    "Cameras",
+    "Laptops",
+    "Accessories",
+    "Headphones",
+    "Food",
+    "Books",
+    "Clothes/Shoes",
+    "Beauty/Health",
+    "Sports",
+    "Outdoor",
+    "Home",
+  ];
 
   const { loading, products, error, productCount, resPerPage } = useSelector(
     (state) => state.products
   );
 
   useEffect(() => {
-    dispatch(getProducts(currentPage));
-    if(error) {
-      dispatch( clearErrors)
+    dispatch(getProducts(keyword, currentPage, price, category, rating));
+    if (error) {
+      dispatch(clearErrors);
     }
+  }, [dispatch, error, keyword, currentPage, price,category,rating]);
 
-  }, [dispatch,error,currentPage]);
+  let count = productCount
+  // if(keyword) {
+  //   count = filteredProductsCount
+  // }
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const paginateFront = () => {
-    if(currentPage>=Math.ceil(productCount / resPerPage)) {
-      setCurrentPage(Math.ceil(productCount / resPerPage))
-    }else {
-      setCurrentPage(currentPage + 1)
+    if (currentPage >= Math.ceil(productCount / resPerPage)) {
+      setCurrentPage(Math.ceil(productCount / resPerPage));
+    } else {
+      setCurrentPage(currentPage + 1);
     }
-  }
+  };
   const paginateBack = () => {
-    if(currentPage<=1) {
-      setCurrentPage(1)
-    }else {
-      setCurrentPage(currentPage - 1)
+    if (currentPage <= 1) {
+      setCurrentPage(1);
+    } else {
+      setCurrentPage(currentPage - 1);
     }
-  }
+  };
 
   return (
     <Fragment>
@@ -50,60 +81,90 @@ function Home() {
       {loading ? (
         <Loader />
       ) : (
-
-      <div className="grid md:grid-cols-4 md:gap-4 grid-cols-2 gap-2">
-      {products &&
-        products.map((product) => (
-            <div key={product._id} className="w-80 max-w-sm bg-white rounded-lg shadow-md ">
-              <Link to={`/product/${product._id}`}>
-                <img
-                  className="p-8 rounded-t-lg"
-                  src={product.images[0].url}
-                  alt="product"
-                />
-              </Link>
-              <div className="px-5 pb-5">
-                <Link to={`/product/${product._id}`}>
-                  <h5 className="text-xl font-semibold tracking-tight text-gray-900 ">
-                    {product.name}
-                  </h5>
-                </Link>
-                <div className="flex">
-               <Rating value={product.ratings} color={'#f8e825'} />
-               <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
-                   {product.ratings}
-                  </span>
-                  </div>
-
-                <div className="text-sm">{product.numOfReviews}</div>
-                <div className="flex justify-between items-center">
-                  <span className="text-3xl font-bold text-gray-900 ">
-                    ${product.price}
-                  </span>
-                  <Link
-                    to="#prod"
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-                  >
-                    Add to cart
-                  </Link>
+        <Fragment>
+          {keyword ? (
+            <Fragment>
+              <div className="grid md:grid-cols-4 md:gap-4">
+                <div className="md:col-span-1 pr-10 mt-7">
+                  <Range
+                    marks={{
+                      1: `$1`,
+                      1000: `$1000`,
+                    }}
+                    min={1}
+                    max={1000}
+                    defaultValue={[1, 1000]}
+                    tipFormatter={(value) => `$${value}`}
+                    tipProps={{
+                      placement: "top",
+                      visible: true,
+                    }}
+                    value={price}
+                    onChange={(price) => setPrice(price)}
+                  />
+                  <hr className="mt-10 mb-2"/>
+                  <h4 className="text-2xl font-bold"> Categories</h4>
+                  <ul className="pl-0 mt-1">
+                    {categories.map(item => (
+                      <li key={item} className='list-none cursor-pointer font-semibold' onClick={() => setCategory(item)} >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <hr className="mt-3 mb-2"/>
+                  <h4 className="text-2xl font-bold"> Ratings</h4>
+                  <ul className="pl-0 mt-1">
+                    {[5,4,3,2,1].map(star => (
+                      <li key={star} className='list-none cursor-pointer font-semibold' onClick={() => setRating(star)} >
+                        <div className="text-xl mt-1">
+                        <Rating value={star} color={"#f8e825"} />
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="md:col-span-3">
+                  <Fragment>
+                    <div className="md:grid md:grid-cols-3 md:gap-4 grid-cols-2 gap-2">
+                      {products &&
+                        products.map((product) => (
+                          <Product key={product._id} product={product} />
+                        ))}
+                    </div>
+                  </Fragment>
                 </div>
               </div>
-            </div>
-        ))}
-        </div>
-      )}
-       <div className="flex justify-center my-10">
-              <Pagination
-              resPerPage={resPerPage}
-              totalProduct={productCount}
-              paginateBack={paginateBack}
-              paginateFront={paginateFront}
-              paginate={paginate}
-              currentPage={currentPage}
-              />
-            </div>
+            </Fragment>
+          ) : (
+            // this is without keyword
+            <Fragment>
+              <div className="md:grid md:grid-cols-4 md:gap-4 grid-cols-2 gap-2">
+                {products &&
+                  products.map((product) => (
+                    <Product key={product._id} product={product} />
+                  ))}
+              </div>
+            </Fragment>
+          )}
         </Fragment>
-  )
+      )}
+      {resPerPage <= count && (
+
+
+      <div className="flex justify-center my-10">
+        <Pagination
+          resPerPage={resPerPage}
+          totalProduct={productCount}
+          paginateBack={paginateBack}
+          paginateFront={paginateFront}
+          paginate={paginate}
+          currentPage={currentPage}
+        />
+      </div>
+            )}
+            
+    </Fragment>
+  );
 }
 
 export default Home;

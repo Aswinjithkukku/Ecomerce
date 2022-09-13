@@ -1,11 +1,15 @@
 import express from 'express'
 const app = express()
 import cookieParser from 'cookie-parser'
+import bodyParser from 'body-parser'
+import fileUpload from 'express-fileupload'
 
 import {errorMiddleware} from "./middlewares/error.js"
 
 app.use(express.json())
+app.use(bodyParser.urlencoded({extended: true}))
 app.use(cookieParser())
+app.use(fileUpload())
 
 // import all routes
 import products from './routes/product.js'

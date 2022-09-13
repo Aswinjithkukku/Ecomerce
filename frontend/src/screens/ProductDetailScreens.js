@@ -1,16 +1,20 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BsStarFill, BsXLg } from "react-icons/bs";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import Rating from "../components/Rating";
 import { getProductDetails, clearErrors } from "../actions/ProductAction";
+import { addItemToCart } from "../actions/CartAction";
 import Loader from "../components/Loader";
 import MetaData from "../components/layout/MetaData";
 
 function ProductDetailScreens() {
   const params = useParams();
   const dispatch = useDispatch();
+
+  const [ quantity, setQuantity ] = useState(1)
+
   const { loading, error, product } = useSelector(
     (state) => state.productDetails
   );
@@ -39,6 +43,25 @@ function ProductDetailScreens() {
       model.style.display = "block";
     }
   };
+
+  const increaseQty = () => {
+    const count = document.querySelector('.count')
+    if(count.valueAsNumber >= product.stock) return;
+    const qty = count.valueAsNumber + 1
+    setQuantity(qty)
+  }
+
+  const decreaseQty = () => {
+    const count = document.querySelector('.count')
+    if(count.valueAsNumber <= 1) return;
+    const qty = count.valueAsNumber - 1
+    setQuantity(qty)
+  }
+
+  const addToCart = () => {
+    dispatch(addItemToCart(params.id, quantity))
+    window.alert('This item added to cart')
+  }
 
   return (
     <Fragment>
@@ -87,6 +110,7 @@ function ProductDetailScreens() {
             </div>
           </div>
           {/* overlay review ends */}
+          <Fragment>
           <div className="mt-14">
             <div className=" md:grid md:grid-cols-2 md:gap-10 block">
               <div className="left">
@@ -117,17 +141,15 @@ function ProductDetailScreens() {
                     </div>
                     <div className="flex mb-5">
                       <div className="flex mr-20">
-                        <span className="bg-red-500 p-2 flex items-center rounded-lg">
+                        <span className="bg-red-500 p-2 flex items-center rounded-lg" onClick={decreaseQty}>
                           <FaMinus />
                         </span>
-                        <span className="mx-5 text-xl font-semibold flex items-center">
-                          2
-                        </span>
-                        <span className="bg-green-500 p-2 flex items-center rounded-lg">
+                        <input type='number' className="count mx-5 w-10 text-center text-xl font-semibold flex items-center" value={quantity} readOnly /> 
+                        <span className="bg-green-500 p-2 flex items-center rounded-lg" onClick={increaseQty}>
                           <FaPlus />
                         </span>
                       </div>
-                      <button className="bg-red-300 rounded-xl py-2 px-4">
+                      <button className="bg-red-300 rounded-xl py-2 px-4" disabled={product.stock === 0} onClick={addToCart}>
                         add to cart
                       </button>
                     </div>
@@ -161,6 +183,7 @@ function ProductDetailScreens() {
               </div>
             </div>
           </div>
+          </Fragment>
         </Fragment>
       )}
     </Fragment>
