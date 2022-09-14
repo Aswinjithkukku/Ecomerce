@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "cloudinary": "^1.31.0"
+    "cloudinary": "^1.31.0",
+    "stripe": "^10.8.0"
   }
 }

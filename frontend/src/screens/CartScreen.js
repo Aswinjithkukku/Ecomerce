@@ -1,14 +1,16 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart, removeItemFromCart } from "../actions/CartAction";
 import MetaData from "../components/layout/MetaData";
 import { FaPlus, FaMinus, FaRegTrashAlt } from "react-icons/fa";
 
 function CartScreen() {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
 
   const { cartItems } = useSelector((state) => state.cart);
+  const { isAuthenticated } = useSelector(state => state.auth)
 
   const increaseQty = (id, quantity, stock) => {
     console.log(quantity);
@@ -29,6 +31,13 @@ function CartScreen() {
 
   const removeHandler = (id) => {
     dispatch(removeItemFromCart(id))
+  }
+  const checkoutHandler = () => {
+    if(!isAuthenticated){
+      navigate('/login')
+   } else{
+      navigate('/shipping')
+   }
   }
 
   return (
@@ -118,9 +127,11 @@ function CartScreen() {
                         ${cartItems.reduce((acc, item) => (acc + item.quantity * item.price),0).toFixed(2)}
                       </div>
                     </div>
-                    <button className="rounded-lg w-full bg-zinc-800 text-white">
+                    {/* <Link to='/shipping'> */}
+                    <button onClick={checkoutHandler} className="rounded-lg w-full bg-zinc-800 text-white">
                       Check out
                     </button>
+                    {/* </Link> */}
                   </div>
                 </div>
               </div>

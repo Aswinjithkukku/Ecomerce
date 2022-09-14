@@ -1,9 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import axios from 'axios';
 import ProtectedRoutes from './components/routes/ProtectedRoutes';
 
 import { loadUser } from './actions/UserAction'
 import store from './Store'
+
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 import Home from "./components/Home";
 import Footer from "./components/layout/Footer";
@@ -17,11 +21,24 @@ import UpdatePassword from './screens/UpdatePassword';
 import ForgotPassword from './screens/ForgotPassword';
 import NewPassword from './screens/NewPassword';
 import CartScreen from './screens/CartScreen';
+import ShippingScreen from './screens/ShippingScreen';
+import ConfirmOrders from './screens/ConfirmOrders';
+import PaymentScreen from './screens/PaymentScreen';
+
 
 
 function App() {
+
+  const [ stripeApiKey, setStripeApiKey ] = useState('')
+
   useEffect(() => {
     store.dispatch(loadUser())
+
+    async function getStripeApiKey() {
+      const { data } =  await axios.get('/api/v1/stripeapi')
+      setStripeApiKey(data.stripeApiKey)
+    }
+    getStripeApiKey()
   },[])
   
   return (
@@ -41,6 +58,24 @@ function App() {
         <Route path='/password/reset/:token' element={<NewPassword />} />
 
         <Route path='/cart' element={<CartScreen />} />
+        <Route path='/shipping' element={<ShippingScreen />} />
+        <Route path='/order/confirm' element={<ConfirmOrders />} />
+
+        {/* { stripeApiKey && 
+        <Elements stripe={loadStripe(stripeApiKey)}>
+        </Elements> } */}
+          <Route path='/payment' element={ stripeApiKey && 
+            <Elements stripe={loadStripe(stripeApiKey)}>
+              <PaymentScreen />
+            </Elements> } >
+          </Route>
+
+
+        {/* { stripeApiKey && 
+        <Elements stripe={loadStripe(stripeApiKey)}>
+        </Elements> }
+          <Route path='/payment' element={<PaymentScreen />} /> */}
+
         </Routes>
       </div>
       <Footer />
