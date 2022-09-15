@@ -5,6 +5,7 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import { productDetailsReducer, productReducer } from './reducers/ProductReducer'
 import { authReducer, forgotPasswordReducer, userReducer } from './reducers/UserReducer'
 import { cartReducer } from './reducers/CartReducer'
+import { myOrdersReducer } from './reducers/OrderReducer'
 
 const reducer = combineReducers({
     products: productReducer,
@@ -14,7 +15,8 @@ const reducer = combineReducers({
     user: userReducer,
     forgotPassword: forgotPasswordReducer,
 
-    cart: cartReducer
+    cart: cartReducer,
+    myOrders: myOrdersReducer,
 })
 
 
