@@ -3,6 +3,10 @@ const app = express()
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import fileUpload from 'express-fileupload'
+import dotenv from'dotenv'
+
+// setting up of config file path
+dotenv.config({ path: 'config/config.env' })
 
 import {errorMiddleware} from "./middlewares/error.js"
 

@@ -37,7 +37,7 @@ function PaymentScreen() {
     const paymentData = {
         amount: Math.round(orderInfo.totalPrice * 100) 
     }
-    const submitHandler = async(e) => {
+    const submitHandler = async (e) => {
         e.preventDefault()
 
         document.querySelector('#pay_btn').disabled = true
@@ -48,12 +48,44 @@ function PaymentScreen() {
             
             const config = {
                 headers : {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 }
             }
             res = await axios.post('/api/v1/payment/process', paymentData, config )
+
+            const clientSecret = res.data.client_secret
+
+            if(!stripe || !elements) {
+              return
+            }
+
+            const result = await stripe.confirmCardPayment(clientSecret, {
+              payment_method: {
+                card: elements.getElement(CardNumberElement),
+                billing_details: {
+                  name: user.name,
+                  email: user.email
+                }
+              }
+            })
+
+            if(result.error) {
+              window.alert(result.error.message)
+              document.querySelector('#pay_btn').disabled = false
+            } else {
+              // The payment is processed or not
+              if(result.paymentIntent.status === 'succeeded') {
+
+                // Todo New Order
+                navigate('/success')
+              } else {
+                window.alert('There is some issues while payment processing')
+              }
+            }
+
         } catch (error) {
             document.querySelector('#pay_btn').disabled = false
+            console.log(error.response.data);
             window.alert(error.response.data.message)
         }
     }
@@ -76,8 +108,6 @@ function PaymentScreen() {
                   type="text"
                   className="block p-2 md:w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                   options={options}
-                //   value={email}
-                //   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="cardExp">
@@ -87,8 +117,6 @@ function PaymentScreen() {
                   type="text"
                   className="block p-2  md:w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                   options={options}
-                //   value={password}
-                //   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div className="cardCvc">
@@ -98,13 +126,11 @@ function PaymentScreen() {
                   type="text"
                   className="block p-2  md:w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                   options={options}
-                //   value={password}
-                //   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
 
               <button id="pay_btn" type='submit' value='Submit' className="text-2xl font-bold bg-slate-300 hover:bg-neutral-300 py-2 rounded-lg w-full">
-                Pay
+                Pay {`  - ${orderInfo && orderInfo.totalPrice}`}
               </button>
 
             </form>

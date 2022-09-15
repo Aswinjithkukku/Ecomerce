@@ -61,9 +61,6 @@ function App() {
         <Route path='/shipping' element={<ShippingScreen />} />
         <Route path='/order/confirm' element={<ConfirmOrders />} />
 
-        {/* { stripeApiKey && 
-        <Elements stripe={loadStripe(stripeApiKey)}>
-        </Elements> } */}
           <Route path='/payment' element={ stripeApiKey && 
             <Elements stripe={loadStripe(stripeApiKey)}>
               <PaymentScreen />
