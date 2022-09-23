@@ -24,6 +24,10 @@ import CartScreen from './screens/CartScreen';
 import ShippingScreen from './screens/ShippingScreen';
 import ConfirmOrders from './screens/ConfirmOrders';
 import PaymentScreen from './screens/PaymentScreen';
+import OrderSuccessScreen from './screens/OrderSuccessScreen';
+import ListOrderScreen from './screens/ListOrderScreen';
+import OrderDetailsScreen from './screens/OrderDetailsScreen';
+import DashboardScreen from './AdminScreens/DashboardScreen';
 
 
 
@@ -59,7 +63,7 @@ function App() {
 
         <Route path='/cart' element={<CartScreen />} />
         <Route path='/shipping' element={<ShippingScreen />} />
-        <Route path='/order/confirm' element={<ConfirmOrders />} />
+        <Route path='/order/confirm' element={<ConfirmOrders />} />  
 
           <Route path='/payment' element={ stripeApiKey && 
             <Elements stripe={loadStripe(stripeApiKey)}>
@@ -67,11 +71,11 @@ function App() {
             </Elements> } >
           </Route>
 
+        <Route path='/order/success' element={<OrderSuccessScreen />} />  
+        <Route path='/orders/me' element={<ListOrderScreen />} />  
+        <Route path='/order/:id' element={<OrderDetailsScreen />} />  
 
-        {/* { stripeApiKey && 
-        <Elements stripe={loadStripe(stripeApiKey)}>
-        </Elements> }
-          <Route path='/payment' element={<PaymentScreen />} /> */}
+        <Route path='/dashboard' element={<DashboardScreen />} />  
 
         </Routes>
       </div>

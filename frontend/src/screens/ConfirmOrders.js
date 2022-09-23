@@ -23,7 +23,7 @@ function ConfirmOrders() {
       itemPrice,
       shippingPrice,
       taxPrice,
-      totalPrice
+      totalPrice,
     }
     sessionStorage.setItem('orderInfo', JSON.stringify(data))
     navigate('/payment')
@@ -66,7 +66,7 @@ function ConfirmOrders() {
                         </span>
                       </td>
                       <td>
-                        <h4 className="text-xl font-semibold">{item.quantity} X {item.price} = ${item.price * item.quantity}</h4>
+                        <h4 className="text-xl font-semibold">{item.quantity} X {item.price} = ${(item.price * item.quantity).toFixed(2)}</h4>
                       </td>
                       </tr>
                   ))}

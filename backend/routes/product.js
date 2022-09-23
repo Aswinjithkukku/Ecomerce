@@ -10,11 +10,13 @@ import {
   createProductReview,
   getProductReviews,
   deleteReview,
+  getAdminProducts,
 } from "../controllers/productController.js";
 
 import { isAuthenticatedUser, authorizeRoles } from '../middlewares/auth.js'
 
 router.route("/products").get(getProducts);
+router.route("/admin/products").get(isAuthenticatedUser,authorizeRoles('admin'),getAdminProducts);
 router.route("/product/:id/").get(getSingleProduct);
 
 router.route("/review").put(isAuthenticatedUser, createProductReview) 

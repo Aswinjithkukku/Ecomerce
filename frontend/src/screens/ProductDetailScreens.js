@@ -4,34 +4,80 @@ import { BsStarFill, BsXLg } from "react-icons/bs";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import Rating from "../components/Rating";
-import { getProductDetails, clearErrors } from "../actions/ProductAction";
+import { newReview, getProductDetails, clearErrors } from "../actions/ProductAction";
 import { addItemToCart } from "../actions/CartAction";
 import Loader from "../components/Loader";
 import MetaData from "../components/layout/MetaData";
+import { NEW_REVIEW_RESET } from '../constants/ProductConstants'
+
 
 function ProductDetailScreens() {
   const params = useParams();
   const dispatch = useDispatch();
 
   const [ quantity, setQuantity ] = useState(1)
+  const [ rating, setRating ] = useState(0)
+  const [ comment, setComment ] = useState('')
 
-  const { loading, error, product } = useSelector(
-    (state) => state.productDetails
-  );
+  const { loading, error, product } = useSelector((state) => state.productDetails);
+  const { user } = useSelector(state => state.auth)
+  const { error: reviewError, success } = useSelector(state => state.newReview)
 
   useEffect(() => {
     dispatch(getProductDetails(params.id));
     if (error) {
+      window.alert(error)
       dispatch(clearErrors());
     }
-  }, [dispatch, params.id, error]);
+    if (reviewError) {
+      window.alert(reviewError)
+      dispatch(clearErrors());
+    }
+    if (success) {
+      window.alert('Review Submitted Succesfully')
+      dispatch({type : NEW_REVIEW_RESET});
+    }
+  }, [dispatch,params.id,reviewError,error,success]);
 
-  const reviewHandler = () => {
+  function reviewHandler() {
     const model = document.getElementById("popup");
     if (model.style.display === "none") {
       model.style.display = "block";
     } else {
       model.style.display = "none";
+    }
+
+    const stars = document.querySelectorAll('.star')
+
+    stars.forEach((star,index) => {
+      star.starValue = index + 1;
+
+      ['click', 'mouseover', 'mouseout'].forEach((e) => {
+        star.addEventListener(e, showRatings)
+      });
+    })
+
+    function showRatings(e){
+      console.log(this.starValue);
+      stars.forEach((star, index) => {
+        if(e.type === 'click') {
+          if(index < this.starValue) {
+            star.style.color='orange'
+
+            setRating(this.starValue)
+          } else {
+            star.style.color='white'
+          }
+        }
+        if(e.type === 'mouseover') {
+          if(index < this.starValue) {
+            star.style.color='yellow'
+          } 
+        }
+        if(e.type === 'mouseout') {
+            star.style.color='white'
+        }
+      })
     }
   };
 
@@ -62,6 +108,16 @@ function ProductDetailScreens() {
     dispatch(addItemToCart(params.id, quantity))
     window.alert('This item added to cart')
   }
+  const submitHandler = () => {
+    const formData = new FormData();
+
+    formData.set('rating', rating);
+    formData.set('comment', comment);
+    formData.set('productId', params.id);
+
+    dispatch(newReview(formData));
+    closeReviewHandler()
+  }
 
   return (
     <Fragment>
@@ -89,21 +145,23 @@ function ProductDetailScreens() {
                 </span>
               </div>
               <div className="flex gap-2 text-7xl justify-center mt-7 text-gray-300">
-                <BsStarFill />
-                <BsStarFill />
-                <BsStarFill />
-                <BsStarFill />
-                <BsStarFill />
-              </div>
+                <span className="star"><BsStarFill  /></span>
+                <span className="star"><BsStarFill  /></span>
+                <span className="star"><BsStarFill  /></span>
+                <span className="star"><BsStarFill  /></span>
+                <span className="star"><BsStarFill  /></span>
+              </div> 
               <div className="flex justify-center text-sm mt-7">
                 <textarea
                   type="textarea"
                   name="review"
                   className="w-10/12 h-28 rounded"
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
                 />
               </div>
               <div className="flex justify-center">
-                <button className="bg-lime-600 px-3 py-1 mt-4 rounded-lg">
+                <button className="bg-lime-600 px-3 py-1 mt-4 rounded-lg" onClick={submitHandler}>
                   Submit
                 </button>
               </div>
@@ -172,17 +230,39 @@ function ProductDetailScreens() {
                     <div className="font-semibold mb-7">
                       sold by: {product.user}{" "}
                     </div>
+                    {user ? (
                     <button
                       onClick={reviewHandler}
                       className="bg-orange-400 px-3 py-1 rounded-lg"
                     >
-                      add Review
+                      Add Review
                     </button>
+                    ) : (
+                      <div className="bg-red-200 rounded-xl text-center p-3 text-red-400">
+                        Login to post your reviews 
+                      </div>
+                    )}
+
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          {product.reviews && product.reviews.length > 0 && (
+            <div className="text-2xl font-semibold">
+              Comments
+            </div>
+          )}
+
+            {product.reviews && product.reviews.length > 0 && (
+              product.reviews.map((review) => (
+                <div key={review._id} className="reviews py-3 border-y-2">
+                  <Rating value={product.ratings} color={"#f8e825"} />
+                  <div className="font-semibold text-gray-400 ml-2"><i>{review.name}</i></div>
+                  <div className="mt-2 text-lg font-semibold">{review.comment}</div>
+                </div>
+              ))
+            )}
           </Fragment>
         </Fragment>
       )}

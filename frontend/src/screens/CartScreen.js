@@ -53,7 +53,7 @@ function CartScreen() {
             <div className="grid grid-cols-4 gap-16">
               <div className="col-span-3">
                 <table className="w-full text-left ">
-                  <tbody className="border-y-2">
+                  <tbody className="border-y-2 ">
                   {cartItems.map((item) => (
                       <tr key={item.name} >
                       <td className="flex items-center">

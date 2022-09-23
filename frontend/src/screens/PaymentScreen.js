@@ -1,12 +1,12 @@
 import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { saveShippingInfo } from '../actions/CartAction'
 import Loader from '../components/Loader'
 import MetaData from '../components/layout/MetaData'
 import { useNavigate } from "react-router-dom";
 import CheckOutSteps from "../components/CheckOutSteps";
 import { useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js'
 import axios from "axios";
+import { createOrder, clearErrors } from '../actions/OrderAction'
 
 const options = {
     style : {
@@ -28,12 +28,26 @@ function PaymentScreen() {
 
     const { user } = useSelector(state => state.auth)
     const { cartItems, shippingInfo } = useSelector(state => state.cart)
+    const { error } = useSelector(state => state.cart)
 
     useEffect(() => {
-
-    },[])
+      if(error) {
+        window.alert(error)
+        dispatch(clearErrors())
+      }
+    },[dispatch,error])
+    const order = {
+      orderItems: cartItems,
+      shippingInfo
+    }
 
     const orderInfo = JSON.parse(sessionStorage.getItem('orderInfo'))
+    if(orderInfo) {
+      order.itemPrice = orderInfo.itemPrice
+      order.shippingPrice = orderInfo.shippingPrice
+      order.taxPrice = orderInfo.taxPrice
+      order.totalPrice = orderInfo.totalPrice
+    } 
     const paymentData = {
         amount: Math.round(orderInfo.totalPrice * 100) 
     }
@@ -76,8 +90,14 @@ function PaymentScreen() {
               // The payment is processed or not
               if(result.paymentIntent.status === 'succeeded') {
 
-                // Todo New Order
-                navigate('/success')
+                order.paymentInfo = {
+                  id:result.paymentIntent.id,
+                  status: result.paymentIntent.status
+                }
+
+                dispatch(createOrder(order))
+
+                navigate('/order/success')
               } else {
                 window.alert('There is some issues while payment processing')
               }
