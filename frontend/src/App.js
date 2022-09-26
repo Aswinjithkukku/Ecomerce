@@ -28,6 +28,8 @@ import OrderSuccessScreen from './screens/OrderSuccessScreen';
 import ListOrderScreen from './screens/ListOrderScreen';
 import OrderDetailsScreen from './screens/OrderDetailsScreen';
 import DashboardScreen from './AdminScreens/DashboardScreen';
+import ProductListScreen from './AdminScreens/ProductListScreen';
+import NewProductScreen from './AdminScreens/NewProductScreen';
 
 
 
@@ -76,6 +78,8 @@ function App() {
         <Route path='/order/:id' element={<OrderDetailsScreen />} />  
 
         <Route path='/dashboard' element={<DashboardScreen />} />  
+        <Route path='/admin/products' element={<ProductListScreen />} />  
+        <Route path='/admin/product' element={<NewProductScreen />} />  
 
         </Routes>
       </div>

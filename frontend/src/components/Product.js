@@ -11,7 +11,7 @@ function Product({ product }) {
         <Link to={`/product/${product._id}`}>
           <img
             className="p-8 rounded-t-lg"
-            src={product.images[0].url}
+            src={product.images[0].url && product.images[0].url}
             alt="product"
           />
         </Link>

@@ -1,9 +1,11 @@
 import React, { Fragment, useEffect } from 'react'
 import MetaData from '../components/layout/MetaData'
 import Loader from '../components/Loader'
+import SideBar from '../components/layout/SideBar'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAdminProducts, clearErrors } from '../actions/ProductAction'
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 
 function ProductListScreen() {
 
@@ -23,22 +25,30 @@ function ProductListScreen() {
 
   return (
     <Fragment>
-      <MetaData title={'My Orders'} />
+      <MetaData title={'All Products'} />
+      <Fragment>
+        <div className='grid grid-cols-12'>
+        <div className="col-span-3">
+        <SideBar />
+        </div>
+        <div className="col-span-9">
+
+        
       <div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-10">
         <table className="w-full text-sm text-left text-gray-500 ">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
             <tr>
               <th scope="col" className="py-3 px-6">
-                Order ID
+                 ID
               </th>
               <th scope="col" className="py-3 px-6">
-                Num Of Items
+                Name
               </th>
               <th scope="col" className="py-3 px-6">
-                Amount
+                Price
               </th>
               <th scope="col" className="py-3 px-6">
-                Status
+                Stock
               </th>
               <th scope="col" className="py-3 px-6">
                 Actions
@@ -55,24 +65,29 @@ function ProductListScreen() {
                   >
                     {product._id}
                   </th>
-                  <td className="py-4 px-6">{product.length}</td>
-                  <td className="py-4 px-6">{`$${product.totalPrice}`}</td>
+                  <td className="py-4 px-6">{product.name}</td>
+                  <td className="py-4 px-6">{`$${product.price}`}</td>
                   <td className="py-4 px-6">
-                   hgdfhgfds
+                   {product.stock}
                   </td>
                   <td className="py-4 px-6">
-                    <Link
-                      to={`/product/${product._id}`}
-                      className="font-medium text-blue-600  hover:underline"
-                    >
-                      <BsFillEyeFill/>
-                    </Link>
+                    <div className="text-lg flex hover:underline">
+                      <span className='text-blue-600'>
+                        <AiFillEdit/>
+                        </span>
+                      <span className='text-red-600 ml-2'>
+                      <AiFillDelete/>
+                        </span>
+                    </div>
                   </td>
                 </tr>
               ))}
           </tbody>
         </table>
       </div>
+      </div>
+        </div>
+      </Fragment>
     </Fragment>
   )
 }

@@ -1,11 +1,27 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import SideBar from "../components/layout/SideBar";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
+import { getAdminProducts } from '../actions/ProductAction'
 
 function DashboardScreen() {
+
+  const dispatch = useDispatch()
+  const { products } = useSelector(state => state.products)
+
+  let outOfStock = 0
+  products.forEach(product => {
+    if(product.stock === 0) {
+      outOfStock+= 1
+    }
+  });
+
+  useEffect(() => {
+    dispatch(getAdminProducts())
+  },[dispatch])
   return (
     <Fragment>
-      <div className="grid grid-cols-12 overflow-hidden ">
+      <div className="grid grid-cols-12 ">
         <div className="col-span-3">
         <SideBar />
         </div>
@@ -23,10 +39,10 @@ function DashboardScreen() {
                 <div className=" h-36 border-b-2 flex justify-center items-center">
                   <div className="text">
                   <div className="text-white text-xl font-semibold">Product</div>
-                  <div className="text-center text-white text-xl font-semibold">56</div>
+                  <div className="text-center text-white text-xl font-semibold">{products && products.length} </div>
                   </div>
                 </div>
-                <Link className="flex justify-between mt-2 mx-5 " to='/admin/product'>
+                <Link className="flex justify-between mt-2 mx-5 " to='/admin/products'>
                   <div className="text-white"><i>View Details</i></div>
                   <div className="text-white"> &gt; </div>
                 </Link>
@@ -62,7 +78,7 @@ function DashboardScreen() {
                 <div className=" h-36  flex justify-center items-center">
                   <div className="text">
                   <div className="text-white text-xl font-semibold">Out of Stock</div>
-                  <div className="text-center text-white text-xl font-semibold">4</div>
+                  <div className="text-center text-white text-xl font-semibold">{outOfStock}</div>
                   </div>
                 </div>
 
