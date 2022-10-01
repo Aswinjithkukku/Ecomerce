@@ -4,8 +4,9 @@ import Loader from '../components/Loader'
 import SideBar from '../components/layout/SideBar'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAdminProducts, clearErrors } from '../actions/ProductAction'
+import { getAdminProducts, clearErrors, deleteProduct } from '../actions/ProductAction'
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { DELETE_PRODUCT_RESET } from '../constants/ProductConstants'
 
 function ProductListScreen() {
 
@@ -13,15 +14,29 @@ function ProductListScreen() {
     const dispatch = useDispatch()
 
     const { loading, error, products } = useSelector(state => state.products)
+    const { error: deleteError, isDeleted } = useSelector(state => state.product)
 
     useEffect(() => {
         dispatch(getAdminProducts())
 
-        if( error) {
+        if(error) {
             window.alert(error)
             dispatch(clearErrors())
         }
-    },[dispatch,error])
+        if(deleteError) {
+            window.alert(deleteError)
+            dispatch(clearErrors())
+        }
+        if(isDeleted) {
+            window.alert('Product Deleted Successfully')
+            navigate('/admin/products')
+            dispatch({ type: DELETE_PRODUCT_RESET })
+        }
+    },[dispatch,error,deleteError,isDeleted,navigate])
+
+    const deleteProductHandler = (id) => {
+      dispatch(deleteProduct(id))
+    }
 
   return (
     <Fragment>
@@ -72,10 +87,12 @@ function ProductListScreen() {
                   </td>
                   <td className="py-4 px-6">
                     <div className="text-lg flex hover:underline">
+                      <Link to={`/admin/product/${product._id}`}> 
                       <span className='text-blue-600'>
                         <AiFillEdit/>
                         </span>
-                      <span className='text-red-600 ml-2'>
+                        </Link>
+                      <span className='text-red-600 ml-2' onClick={() => deleteProductHandler(product._id)}>
                       <AiFillDelete/>
                         </span>
                     </div>

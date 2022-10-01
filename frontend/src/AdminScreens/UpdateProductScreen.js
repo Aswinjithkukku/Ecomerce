@@ -1,17 +1,18 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { newProduct, clearErrors } from '../actions/ProductAction'
-import { useNavigate } from 'react-router-dom'
+import { updateProduct, getProductDetails, clearErrors } from '../actions/ProductAction'
+import { useNavigate, useParams } from 'react-router-dom'
 import MetaData from '../components/layout/MetaData'
 import SideBar from '../components/layout/SideBar'
 import Loader from '../components/Loader'
-import { NEW_PRODUCT_RESET } from '../constants/ProductConstants'
+import { UPDATE_PRODUCT_RESET } from '../constants/ProductConstants'
 
-function NewProductScreen() {
+function UpdateProductScreen() {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
+    const params = useParams()
+    
     const [ name, setName ] = useState('')
     const [ price, setPrice ] = useState(0)
     const [ description, setDescription ] = useState('')
@@ -19,38 +20,58 @@ function NewProductScreen() {
     const [ stock, setStock ] = useState(0)
     const [ seller, setSeller ] = useState('')
     const [ images, setImages ] = useState([])
+    const [ oldImages, setOldImages ] = useState([])
     const [ imagesPreview, setImagesPreview ] = useState([])
 
     const categories = [
-        "Electronics",
-        "Cameras",
-        "Laptops",
-        "Accessories",
-        "Headphones",
-        "Food",
-        "Books",
-        "Clothes/Shoes",
-        "Beauty/Health",
-        "Sports",
-        "Outdoor",
-        "Home",
-      ];
+      "Electronics",
+      "Cameras",
+      "Laptops",
+      "Accessories",
+      "Headphones",
+      "Food",
+      "Books",
+      "Clothes/Shoes",
+      "Beauty/Health",
+      "Sports",
+      "Outdoor",
+      "Home",
+    ];
 
-      const { loading, error, success } = useSelector(state => state.newProduct)
+      const { error, product } = useSelector(state => state.productDetails)
+      const { loading, error: updateError, isUpdated } = useSelector(state => state.product)
+
+      const productId = params.id
 
       useEffect(() => {
+
+        if(product && product._id !== productId) {
+          dispatch(getProductDetails(productId))
+        } else {
+          setName(product.name)
+          setPrice(product.price)
+          setDescription(product.description)
+          setCategory(product.category)
+          setStock(product.stock)
+          setSeller(product.seller)
+          setOldImages(product.images)
+        }
 
         if(error) {
             window.alert(error)
             dispatch(clearErrors())
         }
-        if(success) {
+        if(updateError) {
+            window.alert(updateError)
+            dispatch(clearErrors())
+        }
+        if(isUpdated) {
             navigate('/admin/products')
-            window.alert('Product Created Successfully')
-            dispatch({ type: NEW_PRODUCT_RESET})
+            window.alert('Product Updated Successfully')
+            dispatch({ type: UPDATE_PRODUCT_RESET})
         }
 
-      },[error,dispatch,success,navigate])
+      },[error,dispatch,isUpdated,navigate,updateError,product,productId])
 
       const submitHandler = (e) => {
         e.preventDefault();
@@ -65,7 +86,7 @@ function NewProductScreen() {
         images.forEach(image => {
             formData.append('images', image)
         })
-        dispatch(newProduct(formData));
+        dispatch(updateProduct(product._id ,formData));
       };
     
 
@@ -74,6 +95,7 @@ function NewProductScreen() {
 
         setImagesPreview([])
         setImages([]) 
+        setOldImages([])
 
         files.forEach(file => {
             
@@ -93,10 +115,9 @@ function NewProductScreen() {
       };
     
 
-
   return (
     <Fragment>
-    <MetaData title={"New Product"} />
+    <MetaData title={"Update Product"} />
     {loading ? (
       <Loader />
     ) : (
@@ -110,7 +131,7 @@ function NewProductScreen() {
           <div className="mx-20 mt-14">
             <div className="bg-gray-500 rounded-xl">
               <div className="mx-10">
-                <div className="text-3xl font-extrabold">New Product</div>
+                <div className="text-3xl font-extrabold">Update Product</div>
                 <form onSubmit={submitHandler} encType="multipart/form-data">
                   <div className="Name">
                     <label htmlFor="input-name" className="text-lg font-bold">
@@ -231,13 +252,27 @@ function NewProductScreen() {
                     </div>
                   </div>
                   <div className="preview-images mb-4">
+                  {oldImages && oldImages.map(img => (
+
+                        <img
+                          key={img}
+                          className="p-1 w-12 h-12  ring-2 ring-gray-300"
+                          src={img.url}
+                          alt="img"
+                          width='55'
+                          height='55'
+                        />
+                        ))}
+                        
                   {imagesPreview.map(img => (
 
                         <img
                           key={img}
                           className="p-1 w-12 h-12  ring-2 ring-gray-300"
-                          src={imagesPreview}
+                          src={img}
                           alt="img"
+                          width='55'
+                          height='55'
                         />
                         ))}
                         </div>
@@ -248,7 +283,7 @@ function NewProductScreen() {
                     className="text-2xl font-bold bg-slate-300 hover:bg-neutral-300 py-2 rounded-lg w-full"
                     disabled={loading ? true : false}
                   >
-                    CREATE
+                    UPDATE
                   </button>
                 </form>
               </div>
@@ -263,4 +298,4 @@ function NewProductScreen() {
   )
 }
 
-export default NewProductScreen
+export default UpdateProductScreen

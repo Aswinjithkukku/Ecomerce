@@ -3,11 +3,15 @@ import SideBar from "../components/layout/SideBar";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { getAdminProducts } from '../actions/ProductAction'
+import { allOrders } from '../actions/OrderAction'
+import Loader from "../components/Loader";
+import MetaData from "../components/layout/MetaData";
 
 function DashboardScreen() {
 
   const dispatch = useDispatch()
   const { products } = useSelector(state => state.products)
+  const { loading, orders, totalAmount } = useSelector(state => state.allOrders)
 
   let outOfStock = 0
   products.forEach(product => {
@@ -18,6 +22,7 @@ function DashboardScreen() {
 
   useEffect(() => {
     dispatch(getAdminProducts())
+    dispatch(allOrders())
   },[dispatch])
   return (
     <Fragment>
@@ -27,11 +32,14 @@ function DashboardScreen() {
         </div>
         <div className="col-span-9">
           <div className="text-6xl font-bold mt-10">Dashboard</div>
-          <div className="mt-10">
+          { loading ? <Loader /> : (
+            <Fragment>
+              <MetaData title={'Admin Dashboard'} />
+              <div className="mt-10">
             <div className="bg-blue-600 rounded-xl h-32 flex justify-center items-center">
               <div className="text">
                 <div className="text-white text-xl font-semibold">Total Amount</div>
-                <div className="text-white text-xl font-semibold text-center">$4546</div>
+                <div className="text-white text-xl font-semibold text-center">${totalAmount && totalAmount}</div>
               </div>
             </div>
             <div className="grid grid-cols-4 gap-4 mt-10">
@@ -52,7 +60,7 @@ function DashboardScreen() {
                 <div className=" h-36 border-b-2 flex justify-center items-center">
                   <div className="text">
                   <div className="text-white text-xl font-semibold">Orders</div>
-                  <div className="text-center text-white text-xl font-semibold">150</div>
+                  <div className="text-center text-white text-xl font-semibold">{orders && orders.length} </div>
                   </div>
                 </div>
                 <Link className="flex justify-between mt-2 mx-5 " to='/admin/orders'>
@@ -85,6 +93,10 @@ function DashboardScreen() {
               </div>
             </div>
           </div>
+
+            </Fragment>
+          )}
+          
         </div>
       </div>
     </Fragment>

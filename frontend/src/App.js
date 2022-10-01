@@ -30,6 +30,9 @@ import OrderDetailsScreen from './screens/OrderDetailsScreen';
 import DashboardScreen from './AdminScreens/DashboardScreen';
 import ProductListScreen from './AdminScreens/ProductListScreen';
 import NewProductScreen from './AdminScreens/NewProductScreen';
+import UpdateProductScreen from './AdminScreens/UpdateProductScreen';
+import OrderListScreen from './AdminScreens/OrderListScreen';
+import ProcessOrderScreen from './AdminScreens/ProcessOrderScreen';
 
 
 
@@ -80,6 +83,9 @@ function App() {
         <Route path='/dashboard' element={<DashboardScreen />} />  
         <Route path='/admin/products' element={<ProductListScreen />} />  
         <Route path='/admin/product' element={<NewProductScreen />} />  
+        <Route path='/admin/product/:id' element={<UpdateProductScreen />} />  
+        <Route path='/admin/orders' element={<OrderListScreen />} />  
+        <Route path='/admin/order/:id' element={<ProcessOrderScreen />} />  
 
         </Routes>
       </div>
