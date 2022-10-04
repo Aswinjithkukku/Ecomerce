@@ -33,6 +33,8 @@ import NewProductScreen from './AdminScreens/NewProductScreen';
 import UpdateProductScreen from './AdminScreens/UpdateProductScreen';
 import OrderListScreen from './AdminScreens/OrderListScreen';
 import ProcessOrderScreen from './AdminScreens/ProcessOrderScreen';
+import UsersListScreen from './AdminScreens/UsersListScreen';
+import UpdateUserScreen from './AdminScreens/UpdateUserScreen';
 
 
 
@@ -86,6 +88,8 @@ function App() {
         <Route path='/admin/product/:id' element={<UpdateProductScreen />} />  
         <Route path='/admin/orders' element={<OrderListScreen />} />  
         <Route path='/admin/order/:id' element={<ProcessOrderScreen />} />  
+        <Route path='/admin/users' element={<UsersListScreen />} />  
+        <Route path='/admin/user/:id' element={<UpdateUserScreen />} />  
 
         </Routes>
       </div>

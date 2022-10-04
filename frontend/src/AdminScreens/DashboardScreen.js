@@ -4,14 +4,16 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { getAdminProducts } from '../actions/ProductAction'
 import { allOrders } from '../actions/OrderAction'
+import { allUsers } from '../actions/UserAction'
 import Loader from "../components/Loader";
 import MetaData from "../components/layout/MetaData";
 
 function DashboardScreen() {
 
   const dispatch = useDispatch()
-  const { products } = useSelector(state => state.products)
   const { loading, orders, totalAmount } = useSelector(state => state.allOrders)
+  const { products } = useSelector(state => state.products)
+  const { users } = useSelector(state => state.allUsers)
 
   let outOfStock = 0
   products.forEach(product => {
@@ -21,9 +23,11 @@ function DashboardScreen() {
   });
 
   useEffect(() => {
-    dispatch(getAdminProducts())
     dispatch(allOrders())
+    dispatch(getAdminProducts())
+    dispatch(allUsers())
   },[dispatch])
+  
   return (
     <Fragment>
       <div className="grid grid-cols-12 ">
@@ -73,7 +77,7 @@ function DashboardScreen() {
                 <div className=" h-36 border-b-2 flex justify-center items-center">
                   <div className="text">
                   <div className="text-white text-xl font-semibold">Users</div>
-                  <div className="text-center text-white text-xl font-semibold">46</div>
+                  <div className="text-center text-white text-xl font-semibold">{users && users.length} </div>
                   </div>
                 </div>
                 <Link className="flex justify-between mt-2 mx-5 " to='/admin/users'>

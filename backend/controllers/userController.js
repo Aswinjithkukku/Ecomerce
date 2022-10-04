@@ -229,13 +229,12 @@ export const updateUser = catchAsyncErrors( async (req,res,next) => {
         email: req.body.email,
         role: req.body.role
     }
-
-    const user = await userModel.findOneAndUpdate(req.params.id, newUserData, {
+    const user = await userModel.findByIdAndUpdate(req.params.id, newUserData, {
         new: true,
         runValidators: true,
         useFindAndModify: false
     })
-
+    
     res.status(200).json({
         success: true
     })
@@ -249,7 +248,11 @@ export const deleteUser = catchAsyncErrors( async (req,res,next) => {
     if(!user) {
         return next( new ErrorHandler(`User does not find with id: ${req.params.id}`,400))
     }
-    //remove avatar from cloudinary ...........................................todo.............................
+    //remove avatar from cloudinary 
+    
+    const image_id = user.avatar.public_id
+    await cloudinary.v2.uploader.destroy(image_id)
+
     await user.remove()
 
     res.status(200).json({
