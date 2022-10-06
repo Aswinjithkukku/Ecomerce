@@ -46,17 +46,17 @@ function CartScreen() {
         <h2 className="mt-7 font-bold text-3xl">Your Cart is Empty</h2>
       ) : (
         <Fragment>
-          <h2 className="mt-7 font-bold text-3xl">
+          <h2 className="md:mt-4 my-4 font-bold text-3xl">
             Your Cart : <b>{cartItems.length} items</b>
           </h2>
           <div className="main">
-            <div className="grid grid-cols-4 gap-16">
+            <div className="md:grid md:grid-cols-4 md:gap-16">
               <div className="col-span-3">
                 <table className="w-full text-left ">
                   <tbody className="border-y-2 ">
                   {cartItems.map((item) => (
                       <tr key={item.name} >
-                      <td className="flex items-center">
+                      <td className="flex items-center w-20">
                         <img
                           src={item.image}
                           alt={item.name}
@@ -67,13 +67,13 @@ function CartScreen() {
                       <td>
                         <Link
                           to={`/products/${item.product._id}`}
-                          className="text-lg font-semibold"
+                          className=" text-sm md:text-lg font-semibold"
                         >
                           {item.name}
                         </Link>
                       </td>
                       <td>
-                        <h4 className="text-xl font-bold">${item.price}</h4>
+                        <h4 className="text-sm md:text-xl font-bold">${item.price}</h4>
                       </td>
                       <td>
                         <div className="flex mr-20">
@@ -85,7 +85,7 @@ function CartScreen() {
                           </span>
                           <input
                             type="number"
-                            className="count mx-5 w-10 text-center text-xl font-semibold flex items-center"
+                            className="count md:mx-5 w-10 text-center text-sm md:text-xl font-semibold flex items-center"
                             value={item.quantity}
                             readOnly
                           />
@@ -98,7 +98,7 @@ function CartScreen() {
                         </div>
                       </td>
                       <td>
-                        <h4 className="font-semibold text-2xl text-red-600">
+                        <h4 className="font-semibold text-2xl text-red-600 pr-2">
                           <span className="cursor-pointer" onClick={() => removeHandler(item.product)}><FaRegTrashAlt /></span>
                         </h4>
                       </td>
@@ -108,8 +108,8 @@ function CartScreen() {
                 </table>
               </div>
               <div className="col-span-1">
-                <div className="main">
-                  <div className="bg-gray-400 rounded-xl">
+                <div className="main mt-10 md:mt-0">
+                  <div className="bg-gray-400 rounded-xl mx-10 md:mx-0">
                     <h1 className="text-xl font-semibold border-b-2">
                       order summary
                     </h1>

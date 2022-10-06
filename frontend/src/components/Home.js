@@ -75,8 +75,8 @@ function Home() {
   return (
     <Fragment>
       <MetaData title={"Buy Best Products Online"} />
-      <div className="my-7">
-        <h1 className="text-4xl font-bold">Latest Product</h1>
+      <div className="md:my-7 my-4">
+        <h1 className="ml-2 text-3xl md:text-4xl font-bold">Latest Product</h1>
       </div>
       {loading ? (
         <Loader />
@@ -138,7 +138,7 @@ function Home() {
           ) : (
             // this is without keyword
             <Fragment>
-              <div className="md:grid md:grid-cols-4 md:gap-4 grid-cols-2 gap-2">
+              <div className="md:grid lg:grid-cols-4 md:grid-cols-3 md:gap-4">
                 {products &&
                   products.map((product) => (
                     <Product key={product._id} product={product} />

@@ -6,18 +6,25 @@ function Product({ product }) {
   return (
     <Fragment>
       <div
-        className="w-80 max-w-sm bg-white rounded-lg shadow-md "
+        className="w-screen md:w-60 lg:w-80  bg-white rounded-lg shadow-md  mx-2 border-b-2"
       >
+        <div className="grid grid-cols-5 md:block">
+
+        
+          <div className="col-span-2 md:flex md:justify-center">
         <Link to={`/product/${product._id}`}>
           <img
-            className="p-8 rounded-t-lg"
+            className="p-8 rounded-lg"
             src={product.images[0].url && product.images[0].url}
             alt="product"
-          />
+
+            />
         </Link>
+            </div>
+            <div className="col-span-3">
         <div className="px-5 pb-5">
           <Link to={`/product/${product._id}`}>
-            <h5 className="text-xl font-semibold tracking-tight text-gray-900 ">
+            <h5 className="text-base md:text-xl font-semibold tracking-tight text-gray-900 ">
               {product.name}
             </h5>
           </Link>
@@ -30,16 +37,12 @@ function Product({ product }) {
 
           <div className="text-sm">{product.numOfReviews}</div>
           <div className="flex justify-between items-center">
-            <span className="text-3xl font-bold text-gray-900 ">
+            <span className="text-xl md:text-2xl lg:text-3xl font-bold text-blue-600 ">
               ${product.price}
             </span>
-            <Link
-              to="#prod"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-            >
-              Add to cart
-            </Link>
           </div>
+        </div>
+        </div>
         </div>
       </div>
     </Fragment>

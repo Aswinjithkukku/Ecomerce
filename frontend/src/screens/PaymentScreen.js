@@ -115,10 +115,10 @@ function PaymentScreen() {
         <MetaData title={'Payment'} />
         <Fragment>
         <div className="max-w-screen-sm mx-auto mb-10">
-      <div className="mx-20 mt-48">
+      <div className="mx-3 md:mx-20 mt-20 md:mt-48">
         <CheckOutSteps shipping confirmOrder payment />
         <div className="bg-gray-500 rounded-xl">
-          <div className="mx-10">
+          <div className="md:mx-10 mx-3">
             <form onSubmit={submitHandler}>
               <div className="text-3xl font-extrabold">Card Info</div>
               <div className="cardNo">

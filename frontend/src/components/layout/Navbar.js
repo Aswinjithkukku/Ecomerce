@@ -1,6 +1,7 @@
 import React, { useState }  from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { BsSearch } from "react-icons/bs";
+import { SiBrandfolder } from "react-icons/si";
 
 import Dropdown from './Dropdown';
 import { useSelector } from 'react-redux';
@@ -24,11 +25,11 @@ function Navbar() {
 
   return (
         
-<nav className="bg-gray-300 border-gray-200 px-2 sm:px-4 py-2.5">
+<nav className="bg-black border-gray-200 px-2 sm:px-4 py-2.5 shadow-2xl">
   <div className="container flex flex-wrap justify-between items-center mx-auto">
-  <Link to="/" className="flex items-center">
-      <img src="https://flowbite.com/docs/images/logo.svg" className="mr-3 h-6 sm:h-9" alt="BS Logo"/>
-      <span className="self-center text-xl font-semibold whitespace-nowrap">BrandShop</span>
+  <Link to="/" className="flex items-center group">
+      <span className='self-center text-2xl font-semibold  text-white group-hover:text-blue-600 duration-300'><SiBrandfolder /></span>
+      <span className="self-center text-xl font-semibold whitespace-nowrap text-blue-600 group-hover:text-white duration-300">randShop</span>
   </Link>
 
       <form onSubmit={searchHandler}>
@@ -37,11 +38,11 @@ function Navbar() {
           <input
             type="text"
             id="search-navbar"
-            className="block p-2  md:w-96 text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
+            className="block p-2  md:w-96 text-gray-900 bg-gray-400  sm:text-sm"
             placeholder="Search..."
             onChange={(e) => setKeyword(e.target.value)}
           />
-          <button className="bg-gray-600 hover:bg-gray-400 text-white text-2xl px-2 flex items-center">
+          <button className="bg-blue-600 hover:bg-gray-600 duration-300 text-white text-2xl px-2 flex items-center">
             <BsSearch />
           </button>
         </div>
@@ -52,7 +53,7 @@ function Navbar() {
  
     <Dropdown />
     <Link to='/cart'>
-    <button className='px-3 py-2 m-2 bg-slate-400 text-white rounded-lg'>Cart <span className='ml-1 px-1 bg-slate-200'>{cartItems.length}</span></button>
+    <button className='px-3 py-2 m-2 bg-blue-600 hover:bg-gray-600 duration-300 text-white rounded-md'>Cart <span className='ml-1 px-1 bg-gray-300 text-blue-600'>{cartItems.length}</span></button>
     </Link>
     </div>
     

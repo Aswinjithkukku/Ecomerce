@@ -68,7 +68,7 @@ function SideBar() {
           </Link>
           <Link to="/admin/reviews">
             <div className="text-white bg-gray-800 text-lg flex justify-center items-center font-bold py-3 mt-3 rounded-lg">
-              <BsStarFill /> Users
+              <BsStarFill /> Reviews
             </div>
           </Link>
         </div>

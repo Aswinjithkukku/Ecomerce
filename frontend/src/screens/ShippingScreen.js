@@ -36,7 +36,7 @@ function ShippingScreen() {
     <Fragment>
         <MetaData title={'Shipping Info'}/>
     <div className="max-w-screen-sm mx-auto mb-10">
-      <div className="mx-20 mt-48">
+      <div className="md:mx-20 mx-2 md:mt-48 mt-20">
         <CheckOutSteps shipping />
         <div className="bg-gray-500 rounded-xl">
           <div className="mx-10">
@@ -47,7 +47,7 @@ function ShippingScreen() {
                 <input
                   id="addressField"
                   type="text"
-                  className="block p-2 md:w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="block p-2 w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter Address"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
@@ -59,7 +59,7 @@ function ShippingScreen() {
                 <input
                   id='cityField'
                   type="text"
-                  className="block p-2  md:w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="block p-2  w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter City"
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
@@ -72,7 +72,7 @@ function ShippingScreen() {
                 <input
                   id='phoneNumberField'
                   type="number"
-                  className="block p-2  md:w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="block p-2  w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter Phone Number"
                   value={phoneNo}
                   onChange={(e) => setPhoneNo(e.target.value)}
@@ -84,7 +84,7 @@ function ShippingScreen() {
                 <input
                   id='PostalCodeField'
                   type="number"
-                  className="block p-2  md:w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="block p-2  w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter PostalCode"
                   value={postalCode}
                   onChange={(e) => setPostalCode(e.target.value)}
@@ -96,7 +96,7 @@ function ShippingScreen() {
                 <select
                   id='cityField'
                   type="text"
-                  className="block p-2  md:w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="block p-2  w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter Country"
                   value={country}
                   onChange={(e) => setCountry(e.target.value)}

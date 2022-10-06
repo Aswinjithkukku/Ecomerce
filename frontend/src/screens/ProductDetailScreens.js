@@ -130,9 +130,9 @@ function ProductDetailScreens() {
           <div
             style={{ display: "none" }}
             id="popup"
-            className=" fixed w-full h-full -mx-48  backdrop-grayscale backdrop-blur-sm"
+            className=" fixed w-full h-full md:-mx-48  backdrop-grayscale backdrop-blur-sm"
           >
-            <div className="max-w-screen-sm mx-auto bg-gray-200 my-44 h-96 rounded-xl">
+            <div className="max-w-screen-sm mx-auto bg-gray-200 md:my-44 md:h-96 rounded-xl">
               <div className="flex justify-between border-b-2 border-slate-900">
                 <span className="text-3xl font-bold mt-3 ml-4">
                   Submit Review
@@ -169,35 +169,35 @@ function ProductDetailScreens() {
           </div>
           {/* overlay review ends */}
           <Fragment>
-          <div className="mt-14">
+          <div className="mt-7 md:mt-14">
             <div className=" md:grid md:grid-cols-2 md:gap-10 block">
               <div className="left">
                 {product.images &&
                   product.images.map((image) => (
-                    <div key={image.public_id} className="image">
-                      <img src={image.url} alt={product.name} />
+                    <div key={image.public_id} className="image ">
+                      <img src={image.url} alt={product.name} className='object-cover w-full rounded-2xl'/>
                     </div>
                   ))}
               </div>
               <div className="right">
-                <div className="data">
+                <div className="data pl-2">
                   <div className="border-b-2">
-                    <div className="text-3xl font-semibold mb-2">
+                    <div className="  text-2xl md:text-3xl font-semibold mb-2">
                       {product.name}
                     </div>
-                    <div className="font-extralight mb-3"># {product._id} </div>
-                    <div className="flex text-2xl text-yellow-300 mb-3 ">
+                    <div className=" font-extralight mb-3"># {product._id} </div>
+                    <div className="flex  text-2xl text-yellow-300 mb-3 ">
                       <Rating value={product.ratings} color={"#f8e825"} />
-                      <div className="text-base text-gray-500 ml-2">
+                      <div className="text-base text-gray-500 ">
                         ({product.numOfReviews} reviews)
                       </div>
                     </div>
                   </div>
                   <div className="border-b-2 mb-3">
-                    <div className="text-3xl font-bold my-4">
+                    <div className="text-3xl font-bold my-4 ">
                       ${product.price}
                     </div>
-                    <div className="flex mb-5">
+                    <div className="flex mb-5 ">
                       <div className="flex mr-20">
                         <span className="bg-red-500 p-2 flex items-center rounded-lg" onClick={decreaseQty}>
                           <FaMinus />
@@ -213,7 +213,7 @@ function ProductDetailScreens() {
                     </div>
                   </div>
                   <div className="border-b-2 mb-3">
-                    <div className="font-semibold mb-3">
+                    <div className="font-semibold mb-3 ">
                       Status:{" "}
                       {product.stock > 0 ? (
                         <span className="text-green-600"> In Stock</span>
@@ -223,17 +223,17 @@ function ProductDetailScreens() {
                     </div>
                   </div>
                   <div className="border-b-2 mb-3">
-                    <div className=" text-xl font-bold">Description</div>
-                    <div className="mb-3">{product.description}</div>
+                    <div className=" text-xl font-bold ">Description</div>
+                    <div className="mb-3 ">{product.description}</div>
                   </div>
                   <div className="mb-3">
-                    <div className="font-semibold mb-7">
+                    <div className="font-semibold mb-4 md:mb-7 ">
                       sold by: {product.user}{" "}
                     </div>
                     {user ? (
                     <button
                       onClick={reviewHandler}
-                      className="bg-orange-400 px-3 py-1 rounded-lg"
+                      className="bg-orange-400 px-3 py-1 rounded-lg "
                     >
                       Add Review
                     </button>
@@ -249,14 +249,14 @@ function ProductDetailScreens() {
             </div>
           </div>
           {product.reviews && product.reviews.length > 0 && (
-            <div className="text-2xl font-semibold">
+            <div className="text-2xl font-bold ml-2">
               Comments
             </div>
           )}
 
             {product.reviews && product.reviews.length > 0 && (
               product.reviews.map((review) => (
-                <div key={review._id} className="reviews py-3 border-y-2">
+                <div key={review._id} className="reviews py-3 border-y-2 ml-2">
                   <Rating value={product.ratings} color={"#f8e825"} />
                   <div className="font-semibold text-gray-400 ml-2"><i>{review.name}</i></div>
                   <div className="mt-2 text-lg font-semibold">{review.comment}</div>

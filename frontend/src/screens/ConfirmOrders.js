@@ -36,20 +36,20 @@ function ConfirmOrders() {
             <div className="flex justify-center">
             <CheckOutSteps shipping confirmOrder/>
             </div>
-            <div className="grid grid-cols-4 gap-16">
+            <div className="md:grid md:grid-cols-4 md:gap-16 mx-3 md:mx-0">
               <div className="col-span-3">
-                <h2 className="text-2xl font-semibold">Shipping Info</h2>
-                <div className="my-7">
-                  <p className="mt-2"><span className="text-lg font-semibold">Name : {user && user.name} </span></p>
-                  <p className="mt-2"><span className="text-lg font-semibold">Phone Number : {shippingInfo.phoneNo} </span></p>
-                  <p className="mt-2"><span className="text-lg font-semibold">Address : {`${shippingInfo.address},${shippingInfo.city},${shippingInfo.postalCode},${shippingInfo.country}`}</span></p>
+                <h2 className="text-xl md:text-2xl font-semibold">Shipping Info</h2>
+                <div className="md:my-7">
+                  <p className="mt-2"><span className="md:text-lg text-base font-semibold">Name : {user && user.name} </span></p>
+                  <p className="mt-2"><span className="md:text-lg text-base font-semibold">Phone Number : {shippingInfo.phoneNo} </span></p>
+                  <p className="mt-2"><span className="md:text-lg text-base font-semibold">Address : {`${shippingInfo.address},${shippingInfo.city},${shippingInfo.postalCode},${shippingInfo.country}`}</span></p>
                 </div>
-                <h2 className="text-2xl font-semibold">Your Cart Items</h2>
+                <h2 className="md:text-2xl text-xl font-semibold mt-1">Your Cart Items</h2>
                 <table className="w-full text-left my-5">
                   <tbody>
                   {cartItems.map((item) => (
                       <tr key={item.name} className="border-y-2">
-                      <td className="flex items-center">
+                      <td className="flex items-center w-20 md:w-auto">
                         <img
                           src={item.image}
                           alt={item.name}
@@ -60,13 +60,13 @@ function ConfirmOrders() {
                       <td>
                         <span
                           to={`/products/${item.product._id}`}
-                          className="text-lg font-semibold"
+                          className="md:text-lg font-semibold"
                         >
                           {item.name}
                         </span>
                       </td>
                       <td>
-                        <h4 className="text-xl font-semibold">{item.quantity} X {item.price} = ${(item.price * item.quantity).toFixed(2)}</h4>
+                        <h4 className="md:text-xl font-semibold">{item.quantity} X {item.price} = ${(item.price * item.quantity).toFixed(2)}</h4>
                       </td>
                       </tr>
                   ))}

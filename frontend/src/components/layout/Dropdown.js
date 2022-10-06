@@ -11,21 +11,21 @@ function classNames(...classes) {
 
 
 function Dropdown() {
-    
-const dispatch = useDispatch()
-const { user, loading } = useSelector(state => state.auth)
-
-const logoutHandler = () => {
+  
+  const dispatch = useDispatch()
+  const { user, loading } = useSelector(state => state.auth)
+  
+  const logoutHandler = () => {
     dispatch(logout())
-}
+  }
 
   return (
     <Fragment>
-    <Menu as="div" className="relative inline-block text-left">
-      <div>
-        <Menu.Button className="inline-flex w-full justify-center rounded-md  text-sm font-medium shadow-sm ">
+    <Menu as="div" className="relative inline-block text-left ">
+      <div className='group '>
+        <Menu.Button className="inline-flex w-full justify-center  text-sm font-medium shadow-sm ">
         {user ? (
-      <div className='inline-flex px-3 py-2  bg-slate-400 rounded-lg'>
+      <div className='inline-flex px-3 py-2  bg-blue-600 group-hover:bg-gray-600 duration-300 rounded-md'>
         <div>
           <figure className='flex'>
             <img 
@@ -33,7 +33,7 @@ const logoutHandler = () => {
             alt={user && user.name}
             className='rounded-full w-6 h-6 mr-1'
             />
-            <span>{user && user.name}</span>
+            <span className='text-gray-300 ml-1 '>{user && user.name}</span>
           </figure>
         </div>
       </div>
@@ -73,6 +73,7 @@ const logoutHandler = () => {
                 </Link>
               )}
             </Menu.Item>
+          
 
             <Menu.Item>
               {({ active }) => (

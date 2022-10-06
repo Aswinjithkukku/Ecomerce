@@ -17,7 +17,7 @@ function Me() {
       <MetaData title={'Your Profile'}/>
         <div className='my-5'>
             <div className='text-3xl font-extrabold text-center'>My Profile</div>
-            <div className='grid grid-cols-2 gap-4'>
+            <div className='md:grid md:grid-cols-2 gap-4'>
                 <div className='left  mt-7'>
                     <div className='flex justify-center'>
                     <img src={user.avatar ? user.avatar.url : '/images/apple-watch.png'} alt={user.name}
@@ -48,7 +48,7 @@ function Me() {
               </div>
               {user.role !== 'admin' && (
                 
-              <Link to='/order/me' className='flex justify-center my-1'>
+              <Link to='/orders/me' className='flex justify-center my-1'>
                     <button className='w-full rounded-lg p-2 bg-slate-600 text-center'>My Order</button>
               </Link>
               
