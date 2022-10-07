@@ -12,7 +12,7 @@ function OrderSuccessScreen() {
         <Fragment>
           <div className=' text-center lg:my-72 md:my-52'>
             <div className='flex items-center justify-center'>
-            <div className='text-5xl font-semibold'>
+            <div className='text-5xl font-semibold text-blue-900'>
               Order Placed Successfully
             </div>
             <div className='text-9xl text-green-600'>

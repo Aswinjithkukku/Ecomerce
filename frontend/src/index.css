@@ -9,6 +9,26 @@ body {
   background-color: #EEEEEE;
   font-family: 'Poppins', sans-serif;
 }
+::-webkit-scrollbar {
+  width: .5em;
+  height: 1em;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(43, 43, 43);
+  border-radius: 100vw;
+  margin-block: 0.5em;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 0.25em solid rgb(32, 45, 223);
+  border-radius: 100vw;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(120 100% 10% / 1);
+}
+
 
 /* Loading component starts here */
 .loader {
@@ -76,15 +96,15 @@ body {
 }
 
 .active-step {
-  background: #fa9c23;
-  color: #fff;
+  background: blue;
+  color: #EEEEEE;
 }
 
 .triangle-active {
   float: left;
   width: 0;
   border-top: 20px solid transparent;
-  border-left: 15px solid #fa9c23;
+  border-left: 15px solid blue;
   border-bottom: 20px solid transparent;
   margin-left: -1px;
 }
@@ -92,9 +112,9 @@ body {
 .triangle2-active {
   width: 0;
   float: left;
-  border-top: 20px solid #fa9c23;
-  border-left: 15px solid #fff;
-  border-bottom: 20px solid #fa9c23;
+  border-top: 20px solid blue;
+  border-left: 15px solid #EEEEEE;
+  border-bottom: 20px solid blue;
   margin-right: -1px;
 }
 
@@ -111,7 +131,7 @@ body {
   width: 0;
   float: left;
   border-top: 20px solid #eeeeee;
-  border-left: 15px solid #fff;
+  border-left: 15px solid #EEEEEE;
   border-bottom: 20px solid #eeeeee;
   margin-right: -1px;
 }

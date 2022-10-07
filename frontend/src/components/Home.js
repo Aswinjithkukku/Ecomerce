@@ -76,7 +76,7 @@ function Home() {
     <Fragment>
       <MetaData title={"Buy Best Products Online"} />
       <div className="md:my-7 my-4">
-        <h1 className="ml-2 text-3xl md:text-4xl font-bold">Latest Product</h1>
+        <h1 className="ml-2 text-3xl md:text-4xl font-bold text-blue-600">Latest Product</h1>
       </div>
       {loading ? (
         <Loader />

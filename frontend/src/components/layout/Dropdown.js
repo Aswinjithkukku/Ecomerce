@@ -40,7 +40,7 @@ function Dropdown() {
     ) : (
       !loading && 
       <Link to="/login">
-    <span className='px-3 py-2 m-2 bg-slate-400 text-white rounded-lg' >Login</span>
+    <span className='px-6 py-3 m-2 font-base bg-blue-600 group-hover:bg-gray-600 duration-300 rounded-md text-gray-300' >Login</span>
     </Link>
     )}
 
@@ -60,13 +60,13 @@ function Dropdown() {
           <div className="py-1">
 
 
-            <Menu.Item>
+            <Menu.Item >
               {({ active }) => (
                 <Link
                   to='/dashboard'
                   className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
+                    active ? 'bg-blue-600 text-white' : 'text-gray-600',
+                    'block px-4 py-2 text-sm ' 
                   )}
                 >
                   Dashboard
@@ -80,7 +80,7 @@ function Dropdown() {
                 <Link
                   to='/orders/me'
                   className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                    active ? 'bg-gray-600 text-white' : 'text-gray-700',
                     'block px-4 py-2 text-sm'
                   )}
                 >
@@ -93,7 +93,7 @@ function Dropdown() {
                 <Link
                   to='/me'
                   className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                    active ? 'bg-blue-600 text-white' : 'text-gray-600',
                     'block px-4 py-2 text-sm'
                   )}
                 >
@@ -106,7 +106,7 @@ function Dropdown() {
                   <Link
                     to='/'
                     className={classNames(
-                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                      active ? 'bg-red-600 text-white' : 'text-gray-700',
                       'block w-full px-4 py-2 text-left text-sm'
                     )}
                     onClick={logoutHandler}

@@ -73,18 +73,18 @@ function UpdateProfile() {
         <MetaData title={'Update Profile'} />
         <Fragment>
           <div className="max-w-screen-sm mx-auto mb-10">
-            <div className="mx-20 mt-48">
-              <div className="bg-gray-500 rounded-xl">
+            <div className="md:mx-20 mx-3 md:mt-48 mt-24">
+              <div className="bg-gray-900 rounded-xl py-10">
                 <div className="mx-10">
-                  <div className="text-3xl font-extrabold">Update Profile</div>
+                  <div className="text-3xl font-extrabold text-blue-600 mb-6">Update Profile</div>
                   <form onSubmit={submitHandler} encType="multipart/form-data">
-                    <div className="Name">
-                      <label htmlFor="input-name" className="text-lg font-bold">
+                    <div className="Name mb-4">
+                      <label htmlFor="input-name" className="text-lg font-bold text-gray-400">
                         Name
                       </label>
                       <input
                         type="name"
-                        className="block p-2 md:w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
+                        className="block p-2 w-full text-white bg-gray-400  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Enter Name"
                         id="input-name"
                         name="name"
@@ -92,16 +92,16 @@ function UpdateProfile() {
                         onChange={(e) => setName(e.target.value)}
                       />
                     </div>
-                    <div className="email">
+                    <div className="email mb-4">
                       <label
                         htmlFor="input-email"
-                        className="text-lg font-bold"
+                        className="text-lg font-bold text-gray-400"
                       >
                         Email
                       </label>
                       <input
                         type="email"
-                        className="block p-2 md:w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
+                        className="block p-2 w-full text-white bg-gray-400  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Enter email"
                         id="input-email"
                         name="email"
@@ -109,8 +109,8 @@ function UpdateProfile() {
                         onChange={(e)=> setEmail(e.target.value)} 
                       />
                     </div>
-                    <div className="avatar mb-4">
-                      <label className="text-lg font-bold">Avatar</label>
+                    <div className="avatar mb-7">
+                      <label className="text-lg font-bold text-gray-400">Avatar</label>
                       <div className="flex justify-between">
                         <span className="preview-avatar">
                           <img
@@ -119,9 +119,9 @@ function UpdateProfile() {
                             alt="avatar preview"
                           />
                         </span>
-                        <span className="upload-avatar">
+                        <span className="upload-avatar ml-3">
                           <input
-                      className="block w-full text-lg text-gray-900 bg-gray-50  border-2 border-gray-700 cursor-pointer focus:outline-none  "
+                      className="block w-full text-lg text-white bg-gray-400  border-2 border-gray-700 cursor-pointer focus:outline-none  "
                       id="input-avatar"
                       type="file"
                       name="avatar"
@@ -135,7 +135,7 @@ function UpdateProfile() {
                     <button
                       type="submit"
                       value="Submit"
-                      className="text-2xl font-bold bg-slate-300 hover:bg-neutral-300 py-2 rounded-lg w-full"
+                      className="text-2xl font-bold bg-gray-600 hover:bg-blue-600 duration-300 text-gray-300 py-2 rounded-lg w-full mb-2"
                       disabled={loading ? true : false}
                     >
                       Update

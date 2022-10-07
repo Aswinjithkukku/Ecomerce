@@ -18,33 +18,33 @@ function SideBar() {
 
   return (
     <Fragment>
-      <div className="w-72 bg-gray-700 h-screen sticky">
+      <div className="w-72 bg-gray-900 h-screen sticky">
         <div className="p-4">
-          <div className="text-gray-400 my-4 text-2xl text-center font-bold">
+          <div className="text-blue-600 my-4 text-2xl text-center font-bold">
             Dashboard
           </div>
           <Link to="/dashboard">
             <div className="text-white bg-gray-800 text-lg flex justify-center items-center font-bold py-3 mt-3 rounded-lg">
-              <AiFillDashboard />
+              <AiFillDashboard className="text-blue-600" />
               Dashboard
             </div>
           </Link>
           <div className="bg-gray-800 rounded-lg">
             <div className="text-white bg-gray-800 text-lg flex justify-center items-center font-bold py-3 mt-3 rounded-lg" onClick={extendHandler} >
-              <FaProductHunt />
+              <FaProductHunt  className="text-blue-600"/>
               Product
             </div>
 
             <div id="extend" style={{display: "none"}}>
             <Link to='/admin/products'>
             <div className="text-white bg-gray-800 text-lg flex justify-center items-center font-bold py-3 ml-2 rounded-lg">
-              <DiGhostSmall />
+              <DiGhostSmall className="text-blue-600" />
               All
             </div>
             </Link>
             <Link to='/admin/product'>
             <div className="text-white bg-gray-800 text-lg flex justify-center items-center font-bold py-3 ml-2 rounded-lg">
-              <FaPlus />
+              <FaPlus className="text-blue-600" />
               Create
             </div>
             </Link>
@@ -56,19 +56,19 @@ function SideBar() {
 
           <Link to="/admin/orders">
             <div className="text-white bg-gray-800 text-lg flex justify-center items-center font-bold py-3 mt-3 rounded-lg">
-              <BsCartFill />
+              <BsCartFill  className="text-blue-600"/>
               Orders
             </div>
           </Link>
           <Link to="/admin/users">
             <div className="text-white bg-gray-800 text-lg flex justify-center items-center font-bold py-3 mt-3 rounded-lg">
-              <FaUsers />
+              <FaUsers  className="text-blue-600"/>
               Users
             </div>
           </Link>
           <Link to="/admin/reviews">
             <div className="text-white bg-gray-800 text-lg flex justify-center items-center font-bold py-3 mt-3 rounded-lg">
-              <BsStarFill /> Reviews
+              <BsStarFill  className="text-blue-600"/> Reviews
             </div>
           </Link>
         </div>

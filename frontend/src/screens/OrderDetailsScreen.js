@@ -38,20 +38,20 @@ function OrderDetailsScreen() {
       <MetaData title={'My Order'} />
     {loading? <Loader /> : (
         <Fragment>
-            <div> 
+            <div className='ml-2 md:ml-0 mb-7'> 
                 <div className='mt-10'>
-                    <h1 className='text-4xl font-semibold'> Order # 5454864248644684484</h1>
+                    <h1 className='text-2xl md:text-4xl font-semibold text-blue-900'> Order # 5454864248644684484</h1>
                 </div>
-                <div className='mt-5 pb-4 border-b-2'>
-                    <h2 className='text-xl font-semibold'>Shipping Info</h2>
-                    <h3 className='mt-2 ml-3 font-semibold'>Name : <span>{ user && user.name}</span></h3>
-                    <h3 className='mt-2 ml-3 font-semibold'>Phone : <span>{shippingInfo && shippingInfo.phoneNo} </span></h3>
-                    <h3 className='mt-2 ml-3 font-semibold'>Address : <span>{shippingDetails}</span></h3>
-                    <h3 className='mt-2 ml-3 font-semibold'>Amount : <span>${totalPrice}</span></h3>
+                <div className='mt-5 pb-4 border-b-2 '>
+                    <h2 className='text-xl font-semibold text-gray-900'>Shipping Info</h2>
+                    <h3 className='mt-2 ml-3 font-semibold'>Name : <span className='text-gray-700'>{ user && user.name}</span></h3>
+                    <h3 className='mt-2 ml-3 font-semibold'>Phone : <span className='text-gray-700'>{shippingInfo && shippingInfo.phoneNo} </span></h3>
+                    <h3 className='mt-2 ml-3 font-semibold'>Address : <span className='text-gray-700'>{shippingDetails}</span></h3>
+                    <h3 className='mt-2 ml-3 font-semibold'>Amount : <span className='text-gray-700'>${totalPrice}</span></h3>
                 </div>
                 <div className='pb-4 border-b-2'>
                 <div className='mt-5'>
-                    <h2 className='text-xl font-semibold'>Payment</h2>
+                    <h2 className='text-xl font-semibold text-gray-900'>Payment</h2>
                     {isPaid ? (
                         <h3 className='text-green-600 text-lg font-semibold'>PAID</h3>
                     ) : (
@@ -59,7 +59,7 @@ function OrderDetailsScreen() {
                     )}
                 </div>
                 <div className='mt-5'>
-                    <h2 className='text-xl font-semibold'>Order Status</h2>
+                    <h2 className='text-xl font-semibold text-gray-900'>Order Status</h2>
                     {orderStatus &&
                     String(orderStatus).includes("Delivered") ? (
                       <p className="text-green-600 text-lg font-semibold">{orderStatus.toUpperCase()}</p>
@@ -68,12 +68,12 @@ function OrderDetailsScreen() {
                     )}
                 </div>
                 </div>
-                <div className=''>
+                <div className='overflow-x-auto'>
                 <table className="w-full text-left ">
                   <tbody className="border-b-2">
                   {orderItems && orderItems.map((item) => (
                       <tr key={item.product}>
-                      <td className="flex items-center">
+                      <td className="flex items-center w-20 md:w-auto">
                         <img
                           src={item.image}
                           alt={item.name}
@@ -84,16 +84,16 @@ function OrderDetailsScreen() {
                       <td>
                         <Link
                           to={`/products/${item.product}`}
-                          className="text-lg font-semibold"
+                          className=" md:text-lg font-semibold"
                         >
                           {item.name}
                         </Link>
                       </td>
                       <td>
-                        <h4 className="text-xl font-bold">${item.price}</h4>
+                        <h4 className="md:text-xl font-semibold md:font-bold text-blue-600">${item.price}</h4>
                       </td>
                       <td>
-                        <div className="flex mr-20">
+                        <div className="flex md:mr-20 font-semibold">
                           {item.quantity} Piece(s)
                         </div>
                       </td>

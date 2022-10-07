@@ -182,10 +182,10 @@ function ProductDetailScreens() {
               <div className="right">
                 <div className="data pl-2">
                   <div className="border-b-2">
-                    <div className="  text-2xl md:text-3xl font-semibold mb-2">
+                    <div className="  text-2xl md:text-3xl text-blue-900 font-semibold mb-2">
                       {product.name}
                     </div>
-                    <div className=" font-extralight mb-3"># {product._id} </div>
+                    <div className=" font-extralight text-blue-900 mb-3"># {product._id} </div>
                     <div className="flex  text-2xl text-yellow-300 mb-3 ">
                       <Rating value={product.ratings} color={"#f8e825"} />
                       <div className="text-base text-gray-500 ">
@@ -194,20 +194,20 @@ function ProductDetailScreens() {
                     </div>
                   </div>
                   <div className="border-b-2 mb-3">
-                    <div className="text-3xl font-bold my-4 ">
+                    <div className="text-3xl text-blue-900 font-bold my-4 ">
                       ${product.price}
                     </div>
                     <div className="flex mb-5 ">
                       <div className="flex mr-20">
-                        <span className="bg-red-500 p-2 flex items-center rounded-lg" onClick={decreaseQty}>
+                        <span className="bg-gray-600 hover:bg-blue-600 duration-300 text-white p-2 flex items-center rounded-md" onClick={decreaseQty}>
                           <FaMinus />
                         </span>
                         <input type='number' className="count mx-5 w-10 text-center text-xl font-semibold flex items-center" value={quantity} readOnly /> 
-                        <span className="bg-green-500 p-2 flex items-center rounded-lg" onClick={increaseQty}>
+                        <span className="bg-gray-600 hover:bg-blue-600 duration-300 text-white p-2 flex items-center rounded-md" onClick={increaseQty}>
                           <FaPlus />
                         </span>
                       </div>
-                      <button className="bg-red-300 rounded-xl py-2 px-4" disabled={product.stock === 0} onClick={addToCart}>
+                      <button className="bg-blue-600 text-white hover:bg-gray-600 duration-300 rounded-md py-2 px-4" disabled={product.stock === 0} onClick={addToCart}>
                         add to cart
                       </button>
                     </div>
@@ -223,8 +223,8 @@ function ProductDetailScreens() {
                     </div>
                   </div>
                   <div className="border-b-2 mb-3">
-                    <div className=" text-xl font-bold ">Description</div>
-                    <div className="mb-3 ">{product.description}</div>
+                    <div className=" text-xl font-bold  text-gray-900">Description</div>
+                    <div className="mb-3 font-medium text-gray-600">{product.description}</div>
                   </div>
                   <div className="mb-3">
                     <div className="font-semibold mb-4 md:mb-7 ">
@@ -233,7 +233,7 @@ function ProductDetailScreens() {
                     {user ? (
                     <button
                       onClick={reviewHandler}
-                      className="bg-orange-400 px-3 py-1 rounded-lg "
+                      className="bg-blue-600 text-white hover:bg-gray-600 duration-300 px-3 py-2 rounded-md "
                     >
                       Add Review
                     </button>
@@ -249,7 +249,7 @@ function ProductDetailScreens() {
             </div>
           </div>
           {product.reviews && product.reviews.length > 0 && (
-            <div className="text-2xl font-bold ml-2">
+            <div className="text-2xl font-bold ml-2 mt-2 text-gray-900">
               Comments
             </div>
           )}

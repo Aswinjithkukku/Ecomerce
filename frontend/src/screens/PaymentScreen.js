@@ -7,6 +7,7 @@ import CheckOutSteps from "../components/CheckOutSteps";
 import { useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js'
 import axios from "axios";
 import { createOrder, clearErrors } from '../actions/OrderAction'
+import MobCheckOutSteps from "../components/MobCheckOutSteps";
 
 const options = {
     style : {
@@ -114,42 +115,47 @@ function PaymentScreen() {
     <Fragment>
         <MetaData title={'Payment'} />
         <Fragment>
-        <div className="max-w-screen-sm mx-auto mb-10">
-      <div className="mx-3 md:mx-20 mt-20 md:mt-48">
-        <CheckOutSteps shipping confirmOrder payment />
-        <div className="bg-gray-500 rounded-xl">
+        <div className="max-w-screen-sm mx-auto mb-40">
+      <div className="mx-3 md:mx-20 mt-10 md:mt-24">
+      <div className="hidden md:flex justify-center md:mt-8">
+            <CheckOutSteps shipping confirmOrder payment/>
+          </div>
+          <div className="md:hidden flex my-5 justify-center">
+            <MobCheckOutSteps shipping confirmOrder payment/>
+          </div>
+        <div className="bg-gray-900 rounded-xl py-10">
           <div className="md:mx-10 mx-3">
             <form onSubmit={submitHandler}>
-              <div className="text-3xl font-extrabold">Card Info</div>
-              <div className="cardNo">
-                <label htmlFor="cardNoField" className="text-lg font-bold">Card Number</label>
+              <div className="text-3xl font-extrabold text-blue-600 mb-6">Card Info</div>
+              <div className="cardNo mb-4">
+                <label htmlFor="cardNoField" className="text-lg font-bold text-gray-400">Card Number</label>
                 <CardNumberElement
                   id="cardNoField"
                   type="text"
-                  className="block p-2 md:w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="block p-2 md:w-full text-white bg-gray-400  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                   options={options}
                 />
               </div>
-              <div className="cardExp">
-                <label htmlFor="cardExpField" className="text-lg font-bold">Card Expiry </label>
+              <div className="cardExp mb-4">
+                <label htmlFor="cardExpField" className="text-lg font-bold text-gray-400">Card Expiry </label>
                 <CardExpiryElement
                   id='cardExpField'
                   type="text"
-                  className="block p-2  md:w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="block p-2  md:w-full text-white bg-gray-400  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                   options={options}
                 />
               </div>
-              <div className="cardCvc">
-                <label htmlFor="cardCvcField" className="text-lg font-bold">Card CVC </label>
+              <div className="cardCvc mb-7">
+                <label htmlFor="cardCvcField" className="text-lg font-bold text-gray-400">Card CVC </label>
                 <CardCvcElement
                   id='cardCvcField'
                   type="text"
-                  className="block p-2  md:w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="block p-2  md:w-full text-white bg-gray-400  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                   options={options}
                 />
               </div>
 
-              <button id="pay_btn" type='submit' value='Submit' className="text-2xl font-bold bg-slate-300 hover:bg-neutral-300 py-2 rounded-lg w-full">
+              <button id="pay_btn" type='submit' value='Submit' className="text-2xl font-bold bg-gray-600 hover:bg-blue-600 duration-300 text-gray-300 py-2 rounded-lg w-full mb-2">
                 Pay {`  - ${orderInfo && orderInfo.totalPrice}`}
               </button>
 

@@ -43,20 +43,20 @@ function CartScreen() {
   return (
     <Fragment>
       {cartItems.length === 0 ? (
-        <h2 className="mt-7 font-bold text-3xl">Your Cart is Empty</h2>
+        <h2 className="mt-7 font-bold text-3xl text-blue-900">Your Cart is Empty</h2>
       ) : (
         <Fragment>
           <h2 className="md:mt-4 my-4 font-bold text-3xl">
             Your Cart : <b>{cartItems.length} items</b>
           </h2>
-          <div className="main">
+          <div className="main mb-10">
             <div className="md:grid md:grid-cols-4 md:gap-16">
-              <div className="col-span-3">
-                <table className="w-full text-left ">
+              <div className="col-span-3 overflow-x-auto">
+                <table className="w-full text-left">
                   <tbody className="border-y-2 ">
                   {cartItems.map((item) => (
                       <tr key={item.name} >
-                      <td className="flex items-center w-20">
+                      <td className="flex items-center w-20 mt-4">
                         <img
                           src={item.image}
                           alt={item.name}
@@ -67,18 +67,18 @@ function CartScreen() {
                       <td>
                         <Link
                           to={`/products/${item.product._id}`}
-                          className=" text-sm md:text-lg font-semibold"
+                          className=" text-sm md:text-lg font-semibold text-gray-700"
                         >
                           {item.name}
                         </Link>
                       </td>
                       <td>
-                        <h4 className="text-sm md:text-xl font-bold">${item.price}</h4>
+                        <h4 className="text-sm md:text-xl font-bold text-blue-600">${item.price}</h4>
                       </td>
                       <td>
                         <div className="flex mr-20">
                           <span
-                            className="bg-red-500 p-2 flex items-center rounded-lg"
+                            className="bg-gray-600 text-white hover:bg-blue-600 duration-300 p-2 flex items-center rounded-md"
                             onClick={() => decreaseQty(item.product, item.quantity)}
                           >
                             <FaMinus />
@@ -90,7 +90,7 @@ function CartScreen() {
                             readOnly
                           />
                           <span
-                            className="bg-green-500 p-2 flex items-center rounded-lg"
+                            className="bg-gray-600 text-white hover:bg-blue-600 duration-300 p-2 flex items-center rounded-md"
                             onClick={() => increaseQty(item.product, item.quantity, item.stock)}
                           >
                             <FaPlus />
@@ -109,26 +109,26 @@ function CartScreen() {
               </div>
               <div className="col-span-1">
                 <div className="main mt-10 md:mt-0">
-                  <div className="bg-gray-400 rounded-xl mx-10 md:mx-0">
-                    <h1 className="text-xl font-semibold border-b-2">
-                      order summary
+                  <div className="bg-gray-900 rounded-xl mx-3 md:mx-0 px-4 pb-6">
+                    <h1 className="text-2xl font-semibold border-b-2 text-blue-600 py-4">
+                      Order Summary
                     </h1>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-2 gap-2 text-gray-400 my-6 ">
                       <div className="">
-                    <h5 className="text-xl font-medium">Subtotal:</h5>
+                    <h5 className="text-lg font-medium">Subtotal:</h5>
                       </div>
-                      <div className="text-right pr-4">
+                      <div className="text-right">
                       {cartItems.reduce((acc, item) => (acc + Number(item.quantity)), 0)}(units)
                       </div>
                       <div className="">
-                    <h5 className="text-xl font-medium">Est. total:</h5>
+                    <h5 className="text-lg font-medium">Est. total:</h5>
                       </div>
-                      <div className="text-right pr-4">
+                      <div className="text-right">
                         ${cartItems.reduce((acc, item) => (acc + item.quantity * item.price),0).toFixed(2)}
                       </div>
                     </div>
                     {/* <Link to='/shipping'> */}
-                    <button onClick={checkoutHandler} className="rounded-lg w-full bg-zinc-800 text-white">
+                    <button onClick={checkoutHandler} className="rounded-lg w-full bg-gray-600 hover:bg-blue-600 duration-300 py-2 text-white">
                       Check out
                     </button>
                     {/* </Link> */}
