@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { saveShippingInfo } from "../actions/CartAction";
-import Loader from "../components/Loader";
 import MetaData from "../components/layout/MetaData";
 import { useNavigate } from "react-router-dom";
 import { countries } from "countries-list";
@@ -48,9 +47,14 @@ function ShippingScreen() {
           <div className="bg-gray-900 rounded-xl py-10">
             <div className="mx-10">
               <form onSubmit={submitHandler}>
-                <div className="text-3xl font-extrabold text-blue-600 mb-6">Shipping Info</div>
+                <div className="text-3xl font-extrabold text-blue-600 mb-6">
+                  Shipping Info
+                </div>
                 <div className="Address mb-4">
-                  <label htmlFor="addressField" className="text-lg font-bold text-gray-400">
+                  <label
+                    htmlFor="addressField"
+                    className="text-lg font-bold text-gray-400"
+                  >
                     Address
                   </label>
                   <input
@@ -64,7 +68,10 @@ function ShippingScreen() {
                   />
                 </div>
                 <div className="City mb-4">
-                  <label htmlFor="cityField" className="text-lg font-bold text-gray-400">
+                  <label
+                    htmlFor="cityField"
+                    className="text-lg font-bold text-gray-400"
+                  >
                     City
                   </label>
                   <input
@@ -112,7 +119,10 @@ function ShippingScreen() {
                   />
                 </div>
                 <div className="Country mb-7">
-                  <label htmlFor="cityField" className="text-lg font-bold text-gray-400">
+                  <label
+                    htmlFor="cityField"
+                    className="text-lg font-bold text-gray-400"
+                  >
                     Country
                   </label>
                   <select

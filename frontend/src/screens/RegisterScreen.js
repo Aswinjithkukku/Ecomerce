@@ -17,7 +17,7 @@ function RegisterScreen() {
 
   const { name, email, password } = user;
 
-  const [ avatar, setAvatar ] = useState('')
+  const [avatar, setAvatar] = useState("");
   const [avatarPreview, setAvatarPreview] = useState("/images/apple-watch.png");
 
   const { isAuthenticated, error, loading } = useSelector(
@@ -34,22 +34,19 @@ function RegisterScreen() {
   }, [dispatch, error, isAuthenticated, navigate]);
 
   const onChange = (e) => {
-    if (e.target.name === 'avatar') {
-
-      const reader = new FileReader()
+    if (e.target.name === "avatar") {
+      const reader = new FileReader();
 
       reader.onload = () => {
-        if(reader.readyState === 2) {
-          setAvatarPreview(reader.result)
-          setAvatar(reader.result)
+        if (reader.readyState === 2) {
+          setAvatarPreview(reader.result);
+          setAvatar(reader.result);
         }
-      }
+      };
 
-      reader.readAsDataURL(e.target.files[0])
-
+      reader.readAsDataURL(e.target.files[0]);
     } else {
-
-    setUser({ ...user, [e.target.name]: e.target.value });
+      setUser({ ...user, [e.target.name]: e.target.value });
     }
   };
 
@@ -75,10 +72,15 @@ function RegisterScreen() {
             <div className="mx-3 md:mx-20 mt-24 md:mt-36">
               <div className="bg-gray-900 rounded-xl py-10">
                 <div className="mx-10">
-                  <div className="text-3xl font-extrabold text-blue-600 mb-6">Register</div>
+                  <div className="text-3xl font-extrabold text-blue-600 mb-6">
+                    Register
+                  </div>
                   <form onSubmit={submitHandler} encType="multipart/form-data">
                     <div className="Name mb-5">
-                      <label htmlFor="input-name" className="text-lg font-bold text-gray-400">
+                      <label
+                        htmlFor="input-name"
+                        className="text-lg font-bold text-gray-400"
+                      >
                         Name
                       </label>
                       <input
@@ -126,7 +128,9 @@ function RegisterScreen() {
                       />
                     </div>
                     <div className="avatar mb-7">
-                      <label className="text-lg font-bold text-gray-400">Avatar</label>
+                      <label className="text-lg font-bold text-gray-400">
+                        Avatar
+                      </label>
                       <div className="flex justify-between">
                         <span className="preview-avatar">
                           <img
@@ -137,13 +141,13 @@ function RegisterScreen() {
                         </span>
                         <span className="upload-avatar ml-3">
                           <input
-                      className="block w-full text-lg text-gray-900 bg-gray-400  border-2 border-gray-700 cursor-pointer focus:outline-none  "
-                      id="input-avatar"
-                      type="file"
-                      name="avatar"
-                      accept="images/*"
-                      onChange={onChange}
-                    />
+                            className="block w-full text-lg text-gray-900 bg-gray-400  border-2 border-gray-700 cursor-pointer focus:outline-none  "
+                            id="input-avatar"
+                            type="file"
+                            name="avatar"
+                            accept="images/*"
+                            onChange={onChange}
+                          />
                         </span>
                       </div>
                     </div>
@@ -158,7 +162,10 @@ function RegisterScreen() {
                     </button>
                   </form>
                   <div className="flex justify-end">
-                    <Link to="/login" className="text-base font-bold text-blue-600">
+                    <Link
+                      to="/login"
+                      className="text-base font-bold text-blue-600"
+                    >
                       Already have an account?
                     </Link>
                   </div>

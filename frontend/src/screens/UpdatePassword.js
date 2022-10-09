@@ -4,6 +4,7 @@ import MetaData from '../components/layout/MetaData'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearErrors, updatePasssword } from '../actions/UserAction'
 import { UPDATE_PASSWORD_RESET } from '../constants/UserConstants'
+import Loader from '../components/Loader'
 
 function UpdatePassword() {
   const dispatch = useDispatch()
@@ -37,6 +38,11 @@ function UpdatePassword() {
     }
   return (
     <Fragment>
+      <MetaData title={'Update Password'} />
+      {loading ? (
+        <Loader />
+      ) : (
+        
     <div className="max-w-screen-sm mx-auto mb-56">
       <div className="md:mx-20 mx-3 md:mt-48 mt-24">
         <div className="bg-gray-900 rounded-xl py-10">
@@ -78,6 +84,8 @@ function UpdatePassword() {
         </div>
       </div>
     </div>
+    
+    )}
     </Fragment>
   )
 }

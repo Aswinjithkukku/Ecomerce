@@ -22,89 +22,100 @@ function OrderListScreen() {
       window.alert(error);
       dispatch(clearErrors());
     }
-    if(isDeleted) {
-        window.alert('Order Deleted Successfully')
-        navigate('/admin/products')
-        dispatch({ type: DELETE_ORDER_RESET })
+    if (isDeleted) {
+      window.alert("Order Deleted Successfully");
+      navigate("/admin/products");
+      dispatch({ type: DELETE_ORDER_RESET });
     }
-  }, [dispatch, error,isDeleted,navigate]);
+  }, [dispatch, error, isDeleted, navigate]);
 
   const deleteHandler = (id) => {
-    dispatch(deleteOrder(id))
-  }
+    dispatch(deleteOrder(id));
+  };
 
   return (
     <Fragment>
       <MetaData title={"All Orders"} />
-      <Fragment>
-        <div className="grid grid-cols-12">
-          <div className="col-span-3">
-            <SideBar />
-          </div>
-          <div className="col-span-9">
-            <div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-10">
-              <table className="w-full text-sm text-left text-gray-500 ">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
-                  <tr>
-                    <th scope="col" className="py-3 px-6">
-                      Order ID
-                    </th>
-                    <th scope="col" className="py-3 px-6">
-                      No Of Items
-                    </th>
-                    <th scope="col" className="py-3 px-6">
-                      Amount
-                    </th>
-                    <th scope="col" className="py-3 px-6">
-                      Status
-                    </th>
-                    <th scope="col" className="py-3 px-6">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {orders &&
-                    orders.map((order) => (
-                      <tr className="bg-white border-b " key={order._id}>
-                        <th
-                          scope="row"
-                          className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
-                        >
-                          {order._id}
-                        </th>
-                        <td className="py-4 px-6">{order.orderItems.length}</td>
-                        <td className="py-4 px-6">{`$${order.totalPrice}`}</td>
-                        <td className="py-4 px-6">
-                          {order.orderStatus &&
-                          String(order.orderStatus).includes("Delivered") ? (
-                            <p className="text-green-600">
-                              {order.orderStatus}
-                            </p>
-                          ) : (
-                            <p className="text-red-600">{order.orderStatus}</p>
-                          )}
-                        </td>
-                        <td className="py-4 px-6">
-                          <div className="text-lg flex hover:underline">
-                            <Link to={`/admin/order/${order._id}`}>
-                              <span className="text-blue-600">
-                                <AiFillEye />
+      {loading ? (
+        <Loader />
+      ) : (
+        <Fragment>
+          <div className="grid grid-cols-12">
+            <div className="col-span-3">
+              <SideBar />
+            </div>
+            <div className="col-span-9">
+              <div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-10">
+                <table className="w-full text-sm text-left text-gray-500 ">
+                  <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
+                    <tr>
+                      <th scope="col" className="py-3 px-6">
+                        Order ID
+                      </th>
+                      <th scope="col" className="py-3 px-6">
+                        No Of Items
+                      </th>
+                      <th scope="col" className="py-3 px-6">
+                        Amount
+                      </th>
+                      <th scope="col" className="py-3 px-6">
+                        Status
+                      </th>
+                      <th scope="col" className="py-3 px-6">
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders &&
+                      orders.map((order) => (
+                        <tr className="bg-white border-b " key={order._id}>
+                          <th
+                            scope="row"
+                            className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
+                          >
+                            {order._id}
+                          </th>
+                          <td className="py-4 px-6">
+                            {order.orderItems.length}
+                          </td>
+                          <td className="py-4 px-6">{`$${order.totalPrice}`}</td>
+                          <td className="py-4 px-6">
+                            {order.orderStatus &&
+                            String(order.orderStatus).includes("Delivered") ? (
+                              <p className="text-green-600">
+                                {order.orderStatus}
+                              </p>
+                            ) : (
+                              <p className="text-red-600">
+                                {order.orderStatus}
+                              </p>
+                            )}
+                          </td>
+                          <td className="py-4 px-6">
+                            <div className="text-lg flex hover:underline">
+                              <Link to={`/admin/order/${order._id}`}>
+                                <span className="text-blue-600">
+                                  <AiFillEye />
+                                </span>
+                              </Link>
+                              <span
+                                className="text-red-600 ml-2"
+                                onClick={() => deleteHandler(order._id)}
+                              >
+                                <AiFillDelete />
                               </span>
-                            </Link>
-                            <span className="text-red-600 ml-2" onClick={() => deleteHandler(order._id)}>
-                              <AiFillDelete />
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
-        </div>
-      </Fragment>
+        </Fragment>
+      )}
     </Fragment>
   );
 }

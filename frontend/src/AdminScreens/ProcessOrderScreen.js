@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import MetaData from "../components/layout/MetaData";
 import Loader from "../components/Loader";
 import SideBar from "../components/layout/SideBar";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getOrderDetails,
@@ -13,7 +13,6 @@ import { UPDATE_ORDER_RESET } from "../constants/OrderConstants";
 
 function ProcessOrderScreen() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const params = useParams();
 
   const [status, setStatus] = useState("");

@@ -4,6 +4,7 @@ import { myOrders, clearErrors } from "../actions/OrderAction";
 import { Link } from "react-router-dom";
 import MetaData from "../components/layout/MetaData";
 import { BsFillEyeFill } from "react-icons/bs";
+import Loader from "../components/Loader";
 
 function ListOrderScreen() {
   const dispatch = useDispatch();
@@ -19,11 +20,15 @@ function ListOrderScreen() {
     }
   }, [dispatch, error]);
   if (!orders) {
-    return null
-}
+    return null;
+  }
   return (
     <Fragment>
-      <MetaData title={'My Orders'} />
+      <MetaData title={"My Orders"} />
+      {loading ? (
+        <Loader />
+      ): (
+      <Fragment>
       <div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-10">
         <table className="w-full text-sm text-left text-gray-500 ">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
@@ -70,7 +75,7 @@ function ListOrderScreen() {
                       to={`/order/${order._id}`}
                       className="font-medium text-blue-600  hover:underline"
                     >
-                      <BsFillEyeFill/>
+                      <BsFillEyeFill />
                     </Link>
                   </td>
                 </tr>
@@ -78,6 +83,8 @@ function ListOrderScreen() {
           </tbody>
         </table>
       </div>
+      </Fragment>
+      )}
     </Fragment>
   );
 }

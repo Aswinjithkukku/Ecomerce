@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
 import { updateProfile, loadUser, clearErrors } from '../actions/UserAction'
 import Loader from '../components/Loader'
@@ -26,9 +26,9 @@ function UpdateProfile() {
     if(user) {
       setName(user.name)
       setEmail(user.email)
-      {user.avatar && (
+      if(user.avatar){
           setAvatarPreview(user.avatar.url)
-      ) }
+      }
     }
     if (error) {
         console.log(error);
@@ -71,6 +71,9 @@ function UpdateProfile() {
   return (
     <Fragment>
         <MetaData title={'Update Profile'} />
+        {loading ? (
+          <Loader />
+        ) : (
         <Fragment>
           <div className="max-w-screen-sm mx-auto mb-10">
             <div className="md:mx-20 mx-3 md:mt-48 mt-24">
@@ -146,6 +149,7 @@ function UpdateProfile() {
             </div>
           </div>
         </Fragment>
+        )}
     </Fragment>
   )
 }
