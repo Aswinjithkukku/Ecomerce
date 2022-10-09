@@ -11,8 +11,9 @@ process.on('uncaughtException', err => {
     process.exit(1)
 })
 // setting up of config file path
-if(process.env.NODE_ENV !== 'PRODUCTION') dotenv.config({ path: 'config/config.env' })
-
+if(process.env.NODE_ENV !== 'PRODUCTION') {
+    dotenv.config({ path: 'config/config.env' })
+}
 
 // connecting to database
 connectDatabase()

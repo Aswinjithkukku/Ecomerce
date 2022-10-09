@@ -12,7 +12,9 @@ const __dirname = path.dirname(__filename);
 
 // setting up of config file path
 // dotenv.config({ path: 'config/config.env' })
-if(process.env.NODE_ENV !== 'PRODUCTION') dotenv.config({ path: 'config/config.env' })
+if(process.env.NODE_ENV !== 'PRODUCTION') {
+    dotenv.config({ path: 'config/config.env' })
+} 
 
 import {errorMiddleware} from "./middlewares/error.js"
 
