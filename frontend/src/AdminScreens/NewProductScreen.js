@@ -98,24 +98,24 @@ function NewProductScreen() {
             </div>
             <div className="col-span-9">
               <div className="max-w-screen-sm mx-auto mb-10">
-                <div className="mx-20 mt-14">
-                  <div className="bg-gray-500 rounded-xl">
+                <div className="mx-20 mt-7">
+                  <div className="bg-gray-900 rounded-xl py-10">
                     <div className="mx-10">
-                      <div className="text-3xl font-extrabold">New Product</div>
+                      <div className="text-3xl font-extrabold text-blue-600 mb-4">New Product</div>
                       <form
                         onSubmit={submitHandler}
                         encType="multipart/form-data"
-                      >
-                        <div className="Name">
+                      >F
+                        <div className="Name mb-4">
                           <label
                             htmlFor="input-name"
-                            className="text-lg font-bold"
+                            className="text-lg font-bold text-gray-400"
                           >
                             Name
                           </label>
                           <input
                             type="name"
-                            className="block p-2 md:w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
+                            className="block p-2 md:w-full text-gray-900 bg-gray-400  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Enter Name"
                             id="input-name"
                             name="name"
@@ -123,16 +123,16 @@ function NewProductScreen() {
                             onChange={(e) => setName(e.target.value)}
                           />
                         </div>
-                        <div className="price">
+                        <div className="price mb-4">
                           <label
                             htmlFor="input-price"
-                            className="text-lg font-bold"
+                            className="text-lg font-bold text-gray-400"
                           >
                             Price
                           </label>
                           <input
                             type="number"
-                            className="block p-2 md:w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
+                            className="block p-2 md:w-full text-gray-900 bg-gray-400  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Enter price"
                             id="input-price"
                             name="price"
@@ -140,16 +140,16 @@ function NewProductScreen() {
                             onChange={(e) => setPrice(e.target.value)}
                           />
                         </div>
-                        <div className="description">
+                        <div className="description mb-4">
                           <label
                             htmlFor="input-description"
-                            className="text-lg font-bold"
+                            className="text-lg font-bold text-gray-400"
                           >
                             Description
                           </label>
                           <textarea
                             type="description"
-                            className="block p-2  md:w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
+                            className="block p-2  md:w-full text-gray-900 bg-gray-400  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Enter description"
                             id="input-description"
                             name="description"
@@ -159,15 +159,15 @@ function NewProductScreen() {
                           />
                         </div>
 
-                        <div className="category">
+                        <div className="category mb-4">
                           <label
                             htmlFor="input-category"
-                            className="text-lg font-bold"
+                            className="text-lg font-bold text-gray-400"
                           >
                             Category
                           </label>
                           <select
-                            className="block p-2 md:w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
+                            className="block p-2 md:w-full text-gray-900 bg-gray-400  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Enter category"
                             id="input-category"
                             name="category"
@@ -181,16 +181,16 @@ function NewProductScreen() {
                             ))}
                           </select>
                         </div>
-                        <div className="stock">
+                        <div className="stock mb-4">
                           <label
                             htmlFor="input-stock"
-                            className="text-lg font-bold"
+                            className="text-lg font-bold text-gray-400"
                           >
                             Stock
                           </label>
                           <input
                             type="number"
-                            className="block p-2 md:w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
+                            className="block p-2 md:w-full text-gray-900 bg-gray-400  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Enter stock"
                             id="input-stock"
                             name="stock"
@@ -198,16 +198,16 @@ function NewProductScreen() {
                             onChange={(e) => setStock(e.target.value)}
                           />
                         </div>
-                        <div className="seller">
+                        <div className="seller mb-4">
                           <label
                             htmlFor="input-seller"
-                            className="text-lg font-bold"
+                            className="text-lg font-bold text-gray-400"
                           >
                             Seller Name
                           </label>
                           <input
                             type="name"
-                            className="block p-2 md:w-full text-gray-900 bg-gray-50  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
+                            className="block p-2 md:w-full text-gray-900 bg-gray-400  border border-gray-300 sm:text-sm focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Enter seller"
                             id="input-seller"
                             name="seller"
@@ -216,11 +216,11 @@ function NewProductScreen() {
                           />
                         </div>
 
-                        <div className="avatar mb-4">
-                          <label className="text-lg font-bold">Images</label>
+                        <div className="avatar mb-6">
+                          <label className="text-lg font-bold text-gray-400">Images</label>
                           <div className="">
                             <input
-                              className="block w-full text-lg text-gray-900 bg-gray-50  border-2 border-gray-700 cursor-pointer focus:outline-none  "
+                              className="block w-full text-lg text-gray-900 bg-gray-400  border-2 border-gray-700 cursor-pointer focus:outline-none  "
                               id="input-images"
                               type="file"
                               name="images"
@@ -243,7 +243,7 @@ function NewProductScreen() {
                         <button
                           type="submit"
                           value="Submit"
-                          className="text-2xl font-bold bg-slate-300 hover:bg-neutral-300 py-2 rounded-lg w-full"
+                          className="text-2xl font-bold bg-gray-600 hover:bg-blue-600 duration-300 text-gray-300 py-2 rounded-lg w-full mb-4"
                           disabled={loading ? true : false}
                         >
                           CREATE

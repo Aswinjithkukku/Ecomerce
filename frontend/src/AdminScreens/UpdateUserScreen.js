@@ -39,7 +39,7 @@ function UpdateUserScreen() {
 
       dispatch({ type: UPDATE_USER_RESET });
     }
-  }, [dispatch, user, error, isUpdated, navigate,userId]);
+  }, [dispatch, user, error, isUpdated, navigate, userId]);
 
   const submitHandler = (e) => {
     e.preventDefault();
