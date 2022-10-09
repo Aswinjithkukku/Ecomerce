@@ -29,7 +29,7 @@ function Dropdown() {
         <div>
           <figure className='flex'>
             <img 
-            src='/images/apple-watch.png' 
+            src={user ? user.avatar.url : '/images/apple-watch.png'} 
             alt={user && user.name}
             className='rounded-full w-6 h-6 mr-1'
             />

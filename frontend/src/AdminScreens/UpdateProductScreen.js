@@ -249,7 +249,7 @@ function UpdateProductScreen() {
                         </div>
 
                         <div className="avatar mb-4">
-                          <label className="text-lg font-bold">Images</label>
+                          <label className="text-lg font-bold text-gray-400">Images</label>
                           <div className="">
                             <input
                               className="block w-full text-lg text-gray-900 bg-gray-50  border-2 border-gray-700 cursor-pointer focus:outline-none  "
